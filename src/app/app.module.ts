@@ -14,6 +14,10 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 const matModules = [
   MatButtonModule,
@@ -25,7 +29,15 @@ const matModules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SidenavComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    SidenavComponent,
+    HomeComponent,
+    ClientesComponent,
+    PedidosComponent,
+    AuthComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

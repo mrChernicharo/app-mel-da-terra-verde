@@ -20,9 +20,13 @@ export class SidenavComponent implements OnInit {
     });
   }
 
-  toggleNav() {
+  closeNav() {
     console.log('backdropClick');
     this.layout.sidenavState$.next(false);
     // this.opened = false;
+  }
+
+  logout() {
+    console.log('logged out!');
   }
 }

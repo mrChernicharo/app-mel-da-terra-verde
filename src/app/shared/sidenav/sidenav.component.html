@@ -1,4 +1,4 @@
-<mat-sidenav-container (backdropClick)="toggleNav()">
+<mat-sidenav-container (backdropClick)="closeNav()">
   <mat-sidenav
     mode="push"
     fixedInViewport="true"
@@ -11,26 +11,35 @@
       <br />
       <br />
       <br />
-      <a mat-list-item routerLink="/admin">
-        <i class="material-icons">security</i> Admin
-      </a>
       <a mat-list-item routerLink="/auth">
-        <i class="material-icons">lock_open</i> Autenticação
+        <i class="material-icons">security</i> Login
       </a>
+
+      <!-- <a mat-list-item routerLink="/auth">
+        <i class="material-icons">lock_open</i> Autenticação
+      </a> -->
 
       <a mat-list-item routerLink="/home">
         <i class="material-icons">home</i> Home
       </a>
 
-      <a mat-list-item routerLink="/report/date">
-        <i class="material-icons">add</i> Novo Relatório
+      <a mat-list-item routerLink="/clientes">
+        <i class="material-icons">people</i> Clientes
       </a>
-      <!-- <a mat-list-item routerLink="/calendar" >
-				<i class="material-icons">date_range</i> Calendário
-			</a> -->
-      <a mat-list-item routerLink="/report/me">
+
+      <a mat-list-item routerLink="/pedidos">
+        <i class="material-icons">local_shipping</i> Pedidos
+      </a>
+
+      <!-- routerLink="/calendar" -->
+      <a mat-list-item> <i class="material-icons">date_range</i> Calendário </a>
+
+      <a mat-list-item (click)="logout()">
+        <i class="material-icons">power_settings_new</i> Logout
+      </a>
+      <!-- <a mat-list-item routerLink="/report/me">
         <i class="material-icons">supervisor_account</i> Meus Relatórios
-      </a>
+      </a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="content">

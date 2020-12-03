@@ -8,16 +8,19 @@ import { LayoutService } from '../layout.service';
   // encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
-  @Input('app-title') title;
+  @Input('app-title') title: string;
   public isSidenavOpen = false;
 
   constructor(private layout: LayoutService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.layout.sidenavState$.subscribe((state) => {
+      this.isSidenavOpen = state;
+    });
+  }
 
   onToggleSidenav(event) {
-    this.layout.sidenavState$.next(!this.isSidenavOpen);
-    // this.isSidenavOpen = !this.isSidenavOpen;
-    // console.log(this.isSidenavOpen);
+    this.isSidenavOpen = !this.isSidenavOpen;
+    this.layout.sidenavState$.next(this.isSidenavOpen);
   }
 }
