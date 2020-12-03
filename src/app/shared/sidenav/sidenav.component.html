@@ -1,0 +1,39 @@
+<mat-sidenav-container (backdropClick)="toggleNav()">
+  <mat-sidenav
+    mode="push"
+    fixedInViewport="true"
+    [hasBackdrop]="true"
+    [opened]="opened"
+    fixedTopGap="0"
+  >
+    <mat-nav-list>
+      <br />
+      <br />
+      <br />
+      <br />
+      <a mat-list-item routerLink="/admin">
+        <i class="material-icons">security</i> Admin
+      </a>
+      <a mat-list-item routerLink="/auth">
+        <i class="material-icons">lock_open</i> Autenticação
+      </a>
+
+      <a mat-list-item routerLink="/home">
+        <i class="material-icons">home</i> Home
+      </a>
+
+      <a mat-list-item routerLink="/report/date">
+        <i class="material-icons">add</i> Novo Relatório
+      </a>
+      <!-- <a mat-list-item routerLink="/calendar" >
+				<i class="material-icons">date_range</i> Calendário
+			</a> -->
+      <a mat-list-item routerLink="/report/me">
+        <i class="material-icons">supervisor_account</i> Meus Relatórios
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
