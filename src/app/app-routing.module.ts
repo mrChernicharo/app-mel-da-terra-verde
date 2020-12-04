@@ -4,6 +4,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { ProdutosComponent } from './pages/produtos/produtos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'clientes', component: ClientesComponent },
   { path: 'pedidos', component: PedidosComponent },
+  { path: 'produtos', component: ProdutosComponent },
 ];
 
 @NgModule({

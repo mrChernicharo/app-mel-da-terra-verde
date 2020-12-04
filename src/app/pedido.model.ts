@@ -4,6 +4,7 @@ export type StatusPedido = 'pendente' | 'entregue' | 'cancelado';
 
 export class Pedido {
   id: string;
+  idCliente: string;
   dataPedido: Date;
   previsaoEntrega: Date;
   status: StatusPedido;
