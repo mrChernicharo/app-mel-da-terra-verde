@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title = 'Mel da Terra Verde';
 
-  constructor() {}
+  constructor(
+    private afAuth: AngularFireAuth,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        console.log(
+          'appComponent -> authState.subscribe(user => authService.createUser(user))'
+        );
+        console.log('user.uid -> ' + user.uid);
+        this.authService.createUser(user);
+      }
+    });
+  }
 }

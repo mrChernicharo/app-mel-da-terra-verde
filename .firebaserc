@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mel-da-terra-verde-app": {
+      "hosting": {
+        "mel-da-terra-verde-app": [
+          "mel-da-terra-verde-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mel-da-terra-verde-app"
+  }
+}

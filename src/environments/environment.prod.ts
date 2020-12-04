@@ -1,3 +1,11 @@
 export const environment = {
-  production: true
+  production: true,
+  firebaseConfig: {
+    apiKey: 'AIzaSyAWqzaVq4wYzD9QPsZ9Tw_NmalLkUVKQ30',
+    authDomain: 'mel-da-terra-verde-app.firebaseapp.com',
+    projectId: 'mel-da-terra-verde-app',
+    storageBucket: 'mel-da-terra-verde-app.appspot.com',
+    messagingSenderId: '533180499647',
+    appId: '1:533180499647:web:2aa3ec5631d05d6ddae80a',
+  },
 };

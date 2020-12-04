@@ -145,8 +145,13 @@
               "devServerTarget": "mel-da-terra-verde-app:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "mel-da-terra-verde-app"
 }
