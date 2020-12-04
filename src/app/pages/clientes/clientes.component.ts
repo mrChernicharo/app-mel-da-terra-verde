@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { Cliente } from 'src/app/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
@@ -6,16 +9,20 @@ import { ClientesService } from 'src/app/services/clientes.service';
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss'],
 })
-export class ClientesComponent implements OnInit {
+export class ClientesComponent implements OnInit, AfterViewInit {
   displayedColumns = ['nome', 'pedidos', 'dataCadastro'];
   dataSource;
+  dataSource$: Observable<Cliente[]>;
 
   constructor(private clientesService: ClientesService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
     this.findClientes();
   }
+
   findClientes() {
-    this.clientesService.searchClientes();
+    this.dataSource$ = this.clientesService.searchClientes().pipe(delay(10));
   }
 }
