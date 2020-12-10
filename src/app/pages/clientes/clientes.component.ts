@@ -10,7 +10,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
   styleUrls: ['./clientes.component.scss'],
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['nome', 'pedidos', 'dataCadastro'];
+  displayedColumns = ['nome', 'dataCadastro', 'pedidos'];
   dataSource;
   dataSource$: Observable<Cliente[]>;
 
@@ -19,10 +19,9 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
+    this.dataSource$ = this.clientesService.searchClientes().pipe(delay(100));
     this.findClientes();
   }
 
-  findClientes() {
-    this.dataSource$ = this.clientesService.searchClientes().pipe(delay(10));
-  }
+  findClientes() {}
 }

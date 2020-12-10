@@ -1,23 +1,39 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { delay, map, tap } from 'rxjs/operators';
 import { Cliente } from '../cliente.model';
+// import { StoreService } from '../store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientesService {
-  constructor() {}
+  constructor(
+    // private appStore: StoreService
+    private db: AngularFirestore
+  ) {}
 
   searchClientes() {
-    const dummyCliente: Cliente = {
-      id: 'hnunwdoinqwoid',
-      nome: 'José',
-      email: 'jose@gmail.com',
-      telefone: '212121212121',
-      dataCadastro: new Date(2020, 11, 4),
-      pedidos: [],
-    };
+    console.log('searchClientes');
+    const query = this.db
+      .collection('clientes', (ref) => ref.orderBy('nome'))
+      .snapshotChanges();
+    query.pipe(
+      tap((snaps) => console.log(snaps)),
+      map((snaps) => {
+        console.log(snaps);
+        return snaps.map((snap) => {
+          return (Object.assign(snap.payload.doc.data(), {
+            id: snap.payload.doc.id,
+          }) as unknown) as Cliente;
+        });
 
-    return of([dummyCliente]);
+        // return clientes;
+      }),
+      tap((clientes) => console.log(clientes))
+    );
+
+    return (query as unknown) as Observable<Cliente[]>;
   }
 }
