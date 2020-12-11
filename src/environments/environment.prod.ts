@@ -4,6 +4,7 @@ export const environment = {
     apiKey: 'AIzaSyAWqzaVq4wYzD9QPsZ9Tw_NmalLkUVKQ30',
     authDomain: 'mel-da-terra-verde-app.firebaseapp.com',
     projectId: 'mel-da-terra-verde-app',
+    databaseURL: 'https://mel-da-terra-verde-app.firebaseio.com',
     storageBucket: 'mel-da-terra-verde-app.appspot.com',
     messagingSenderId: '533180499647',
     appId: '1:533180499647:web:27931da614b49072dae80a',

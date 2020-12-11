@@ -16,11 +16,19 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   constructor(private clientesService: ClientesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource$ = this.findClientes();
+  }
 
   ngAfterViewInit() {
     this.findClientes();
   }
 
-  findClientes() {}
+  findClientes() {
+    return this.clientesService.searchClientes();
+  }
+
+  // addCliente() {
+  //   this.clientesService.addNewClient();
+  // }
 }
