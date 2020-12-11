@@ -1,5 +1,6 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
@@ -26,6 +27,11 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { ProdutosComponent } from './pages/produtos/produtos.component';
+import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
+import { registerLocaleData } from '@angular/common';
+import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
+
+registerLocaleData(localePt);
 
 const matModules = [
   MatButtonModule,
@@ -49,6 +55,8 @@ const matModules = [
     PedidosComponent,
     AuthComponent,
     ProdutosComponent,
+    ServerTimestampPipe,
+    NewClienteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +67,12 @@ const matModules = [
     AngularFireAuthModule,
     ...matModules,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR',
+    },
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of, pipe } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
+import { delay, map, take, takeLast, tap } from 'rxjs/operators';
 import { Cliente } from '../pages/clientes/cliente.model';
+import { StoreService } from './store.service';
 // import { StoreService } from '../store.service';
 
 @Injectable({
@@ -14,6 +11,7 @@ import { Cliente } from '../pages/clientes/cliente.model';
 })
 export class ClientesService {
   constructor(
+    private storeService: StoreService,
     private db: AngularFirestore // private appStore: StoreService
   ) {}
 
@@ -31,6 +29,11 @@ export class ClientesService {
 
           return cliente;
         });
+      }),
+      // take(1),
+      tap((clientes) => {
+        console.log(clientes);
+        // this.storeService.storeClientes(clientes);
       })
     );
   }

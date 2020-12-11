@@ -10,9 +10,15 @@ import { ClientesService } from 'src/app/services/clientes.service';
   styleUrls: ['./clientes.component.scss'],
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['position', 'nome', 'dataCadastro', 'pedidos'];
-  dataSource;
+  displayedColumns = [
+    'position',
+    'nome',
+    'telefone',
+    'dataCadastro',
+    'pedidos',
+  ];
   dataSource$: Observable<Cliente[]>;
+
   constructor(private clientesService: ClientesService) {}
 
   ngOnInit(): void {
@@ -25,6 +31,14 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   findClientes() {
     return this.clientesService.searchClientes();
+  }
+
+  onAddCliente() {
+    this.openNewClienteDialog();
+  }
+
+  openNewClienteDialog() {
+    console.log('Abra-te Séssamo!');
   }
 
   // addCliente() {
