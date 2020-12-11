@@ -6,10 +6,6 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -56,8 +52,8 @@ const matModules = [
     AppRoutingModule,
     BrowserAnimationsModule,
     // AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule.enablePersistence(),
-    AngularFireAuthModule,
+    // AngularFirestoreModule.enablePersistence(),
+    // AngularFireAuthModule,
     ...matModules,
   ],
   providers: [],

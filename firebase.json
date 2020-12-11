@@ -1,11 +1,12 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/mel-da-terra-verde-app",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "site": "mel-da-terra-verde-app"
   },
   "firestore": {
     "rules": "firestore.rules",

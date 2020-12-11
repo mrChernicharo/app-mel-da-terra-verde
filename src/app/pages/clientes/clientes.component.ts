@@ -19,7 +19,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.dataSource$ = this.clientesService.searchClientes().pipe(delay(100));
     this.findClientes();
   }
 
