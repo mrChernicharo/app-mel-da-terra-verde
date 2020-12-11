@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,9 +54,9 @@ const matModules = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFirestoreModule.enablePersistence(),
-    // AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     ...matModules,
   ],
   providers: [],
