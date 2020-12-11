@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 // var admin = require('firebase-admin');
 
@@ -13,20 +12,8 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   public title = 'Mel da Terra Verde';
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private authService: AuthService
-  ) {}
+  constructor() // private afAuth: AngularFireAuth,
+  {}
 
-  ngOnInit() {
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        console.log(
-          'appComponent -> authState.subscribe(user => authService.createUser(user))'
-        );
-        console.log('user.uid -> ' + user.uid);
-        this.authService.createUser(user);
-      }
-    });
-  }
+  ngOnInit() {}
 }
