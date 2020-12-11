@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Cliente } from 'src/app/cliente.model';
+import { Cliente } from 'src/app/pages/clientes/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
@@ -10,10 +10,9 @@ import { ClientesService } from 'src/app/services/clientes.service';
   styleUrls: ['./clientes.component.scss'],
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['nome', 'dataCadastro', 'pedidos'];
+  displayedColumns = ['position', 'nome', 'dataCadastro', 'pedidos'];
   dataSource;
   dataSource$: Observable<Cliente[]>;
-
   constructor(private clientesService: ClientesService) {}
 
   ngOnInit(): void {

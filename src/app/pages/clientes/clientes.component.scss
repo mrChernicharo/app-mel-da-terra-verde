@@ -6,6 +6,21 @@ div.page-container {
   align-items: center;
   justify-content: center;
 
+  .new-client-btn {
+    position: absolute;
+    top: 76px;
+    right: 18px;
+    height: 76px;
+    width: 100px;
+    // > .mat-button-wrapper {
+    //   border: 1px solid;
+    // }
+    mat-icon {
+      font-size: 60px;
+      margin: 0 24px 0 -19px;
+    }
+  }
+
   .search-bar-container {
     display: flex;
     border: 1px solid #707000;

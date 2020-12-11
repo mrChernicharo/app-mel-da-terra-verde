@@ -1,4 +1,4 @@
-import { Pedido } from './pedido.model';
+import { Pedido } from '../pedidos/pedido.model';
 
 export class Cliente {
   id: string;

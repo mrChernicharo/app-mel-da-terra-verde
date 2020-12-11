@@ -6,7 +6,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable, of, pipe } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
-import { Cliente } from '../cliente.model';
+import { Cliente } from '../pages/clientes/cliente.model';
 // import { StoreService } from '../store.service';
 
 @Injectable({
@@ -18,7 +18,9 @@ export class ClientesService {
   ) {}
 
   searchClientes(): Observable<Cliente[]> {
-    const query = this.db.collection('clientes', (ref) => ref.orderBy('nome'));
+    const query = this.db.collection<Cliente>('clientes', (ref) =>
+      ref.orderBy('nome')
+    );
 
     return query.snapshotChanges().pipe(
       map((snaps) => {
@@ -27,7 +29,7 @@ export class ClientesService {
             id: snap.payload.doc.id,
           });
 
-          return cliente as Cliente;
+          return cliente;
         });
       })
     );

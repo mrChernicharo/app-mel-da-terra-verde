@@ -1,4 +1,4 @@
-import { Produto } from './produto.model';
+import { Produto } from '../produtos/produto.model';
 
 export type StatusPedido = 'pendente' | 'entregue' | 'cancelado';
 
