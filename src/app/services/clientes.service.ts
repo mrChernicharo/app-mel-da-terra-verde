@@ -10,12 +10,14 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class ClientesService {
+  public storedClientes: Cliente[] = [];
+
   constructor(
     private storeService: StoreService,
     private db: AngularFirestore // private appStore: StoreService
   ) {}
 
-  searchClientes(): Observable<Cliente[]> {
+  searchAllClientes(): Observable<Cliente[]> {
     const query = this.db.collection<Cliente>('clientes', (ref) =>
       ref.orderBy('nome')
     );
@@ -30,10 +32,10 @@ export class ClientesService {
           return cliente;
         });
       }),
-      // take(1),
+      take(1),
       tap((clientes) => {
-        console.log(clientes);
-        // this.storeService.storeClientes(clientes);
+        this.storedClientes = clientes;
+        console.log(this.storedClientes);
       })
     );
   }

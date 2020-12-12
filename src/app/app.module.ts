@@ -30,6 +30,7 @@ import { ProdutosComponent } from './pages/produtos/produtos.component';
 import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
 import { registerLocaleData } from '@angular/common';
 import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
+import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
 
 registerLocaleData(localePt);
 
@@ -39,6 +40,7 @@ const matModules = [
   MatIconModule,
   MatCardModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatListModule,
   MatSidenavModule,
   MatTableModule,
@@ -57,6 +59,7 @@ const matModules = [
     ProdutosComponent,
     ServerTimestampPipe,
     NewClienteDialogComponent,
+    EditClienteDialogComponent,
   ],
   imports: [
     BrowserModule,

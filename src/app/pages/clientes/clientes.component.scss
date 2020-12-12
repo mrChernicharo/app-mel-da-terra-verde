@@ -37,4 +37,12 @@ div.page-container {
       border: none;
     }
   }
+
+  .cliente-row {
+    border: 2px solid purple;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
