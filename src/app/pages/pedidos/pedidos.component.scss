@@ -1,7 +1,48 @@
 div.page-container {
   height: calc(100% - 16px);
   display: flex;
+  flex-direction: column;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
+
+  .new-pedido-btn {
+    position: absolute;
+    top: 76px;
+    right: 18px;
+    height: 76px;
+    width: 100px;
+    // > .mat-button-wrapper {
+    //   border: 1px solid;
+    // }
+    mat-icon {
+      font-size: 60px;
+      margin: 0 24px 0 -19px;
+    }
+  }
+
+  .search-bar-container {
+    display: flex;
+    border: 1px solid #707000;
+    padding: 1px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    input.search-bar {
+      border: none;
+      outline: none;
+    }
+    .search-icon {
+      pointer-events: none;
+      border: none;
+    }
+  }
+
+  .pedido-row {
+    border: 2px solid purple;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }

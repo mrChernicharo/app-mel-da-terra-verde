@@ -17,7 +17,7 @@ export class ClientesService {
     private db: AngularFirestore // private appStore: StoreService
   ) {}
 
-  searchAllClientes(): Observable<Cliente[]> {
+  fetchAllClientes(): Observable<Cliente[]> {
     const query = this.db.collection<Cliente>('clientes', (ref) =>
       ref.orderBy('nome')
     );

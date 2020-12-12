@@ -34,6 +34,7 @@ import { registerLocaleData } from '@angular/common';
 import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
 import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NewPedidoDialogComponent } from './pages/pedidos/new-pedido-dialog/new-pedido-dialog.component';
 
 registerLocaleData(localePt);
 
@@ -65,6 +66,7 @@ const matModules = [
     ServerTimestampPipe,
     NewClienteDialogComponent,
     EditClienteDialogComponent,
+    NewPedidoDialogComponent,
   ],
   imports: [
     BrowserModule,

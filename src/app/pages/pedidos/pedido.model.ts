@@ -3,7 +3,7 @@ import { Produto } from '../produtos/produto.model';
 export type StatusPedido = 'pendente' | 'entregue' | 'cancelado';
 
 export class Pedido {
-  id: string;
+  id?: string;
   idCliente: string;
   dataPedido: Date;
   previsaoEntrega: Date;

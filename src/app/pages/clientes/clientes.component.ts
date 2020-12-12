@@ -49,7 +49,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   loadClientes() {
-    return this.clientesService.searchAllClientes();
+    return this.clientesService.fetchAllClientes();
   }
 
   applyFilter(event: Event) {
