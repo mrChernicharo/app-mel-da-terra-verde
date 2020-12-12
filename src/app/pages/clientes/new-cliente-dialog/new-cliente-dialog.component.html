@@ -1,1 +1,56 @@
 <p>new-cliente-dialog works!</p>
+
+<!-- [formGroup]="newClienteForm" -->
+
+<div>
+  <form [formGroup]="newClienteForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input
+        formControlName="nome"
+        type="text"
+        matInput
+        placeholder="Cliente"
+      />
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error>O nome é obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="fulano@gmail.com"
+        matInput
+      />
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input
+        formControlName="telefone"
+        type="text"
+        placeholder="xx xxxxx xxxx"
+        matInput
+      />
+      <mat-icon matSuffix>phone</mat-icon>
+      <mat-error>use apenas números</mat-error>
+    </mat-form-field>
+  </form>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="accent"
+    (click)="saveCliente()"
+    [disabled]="newClienteForm.invalid"
+  >
+    Salvar Cliente
+  </button>
+
+  <button type="button" mat-raised-button (click)="onCancel()">
+    Cancelar
+  </button>
+</div>

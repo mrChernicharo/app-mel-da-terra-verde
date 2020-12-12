@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   @Output()
   clienteEdited = new EventEmitter<Cliente>();
-  dataSource;
+  dataSource: any;
 
   constructor(
     private clientesService: ClientesService,

@@ -39,4 +39,29 @@ export class ClientesService {
       })
     );
   }
+
+  addNewCliente({
+    nome,
+    email,
+    telefone,
+  }: Omit<Cliente, 'id' | 'dataCadastro' | 'pedidos'>) {
+    const newCliente: Cliente = {
+      nome,
+      email,
+      telefone,
+      dataCadastro: new Date(),
+      atualizadoEm: new Date(),
+    };
+    console.log(newCliente);
+
+    this.db
+      .collection('clientes')
+      .add(newCliente)
+      .then((data) => {
+        const changes = {
+          id: data.id,
+        };
+        this.db.doc(`clientes/${data.id}`).update(changes);
+      });
+  }
 }

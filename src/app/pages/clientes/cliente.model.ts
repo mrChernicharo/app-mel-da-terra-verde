@@ -1,10 +1,20 @@
 import { Pedido } from '../pedidos/pedido.model';
 
+// export interface Endereco {
+//   rua: string;
+//   numero: string;
+//   complemento: string;
+//   bairro: string;
+//   cep: string;
+// }
+
 export class Cliente {
-  id: string;
+  id?: string;
   nome: string;
   email: string;
   telefone: string;
   dataCadastro: Date;
-  pedidos: Pedido[];
+  atualizadoEm: Date;
+  pedidos?: Pedido[];
+  // endereco?: Endereco;
 }

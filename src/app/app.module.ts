@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +14,7 @@ import { AppComponent } from './app.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -31,6 +33,7 @@ import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
 import { registerLocaleData } from '@angular/common';
 import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
 import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 registerLocaleData(localePt);
 
@@ -41,6 +44,8 @@ const matModules = [
   MatCardModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatListModule,
   MatSidenavModule,
   MatTableModule,
@@ -63,8 +68,10 @@ const matModules = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
