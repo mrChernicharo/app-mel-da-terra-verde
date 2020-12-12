@@ -38,11 +38,15 @@ div.page-container {
     }
   }
 
-  .pedido-row {
-    border: 2px solid purple;
-
-    &:hover {
-      opacity: 0.7;
+  .pago-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    &.pago-true {
+      background-color: rgb(4, 173, 109);
+    }
+    &.pago-false {
+      background-color: rgb(218, 172, 72);
     }
   }
 }

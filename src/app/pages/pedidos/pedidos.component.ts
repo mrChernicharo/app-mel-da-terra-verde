@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { PedidosService } from 'src/app/services/pedidos.service';
-import { NewPedidoDialogComponent } from './new-pedido-dialog/new-pedido-dialog.component';
+import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
+import { Pedido } from './pedido.model';
 
 @Component({
   selector: 'app-pedidos',
@@ -9,21 +11,51 @@ import { NewPedidoDialogComponent } from './new-pedido-dialog/new-pedido-dialog.
   styleUrls: ['./pedidos.component.scss'],
 })
 export class PedidosComponent implements OnInit {
-  displayedColumns = [];
+  displayedColumns = [
+    'position',
+    'nome',
+    'dataPedido',
+    'status',
+    'previsaoEntrega',
+    'valor',
+    'pago',
+  ];
   dataSource;
+
+  @Output()
+  newPedidoAdded = new EventEmitter<Pedido>();
   constructor(
-    // private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
+    private dialog: MatDialog,
     private pedidosService: PedidosService
   ) {}
 
   ngOnInit(): void {
-    this.loadPedidos();
+    this.loadPedidos().subscribe((data) => {
+      this.dataSource = new MatTableDataSource<Pedido>(data);
+    });
   }
 
   loadPedidos() {
-    this.pedidosService.fetchAllPedidos();
+    return this.pedidosService.fetchAllPedidos();
   }
-  applyFilter(event) {}
+  applyFilter(event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-  onAddPedido() {}
+  onAddPedido() {
+    this.openNewPedidoDialog();
+  }
+
+  openNewPedidoDialog() {
+    const dialogRef = this.dialog.open(NewPedidoDialogComponent, {
+      panelClass: 'new-pedido-dialog',
+      hasBackdrop: true,
+      autoFocus: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.newPedidoAdded.emit(result);
+    });
+  }
 }
