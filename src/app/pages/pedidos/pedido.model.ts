@@ -12,4 +12,8 @@ export class Pedido {
   valor: number;
   pago: boolean;
   desconto?: number;
+
+  getValor(): number {
+    return this.produtos.reduce((initial, next) => initial + next.valor, 0);
+  }
 }

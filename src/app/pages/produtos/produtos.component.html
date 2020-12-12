@@ -1,3 +1,17 @@
 <div class="page-container">
   <p>produtos works!</p>
+
+  <div class="produtos-container">
+    <ng-container *ngFor="let pote of potes; let i = index">
+      <mat-card>
+        <div class="card-header">
+          {{ pote === "kit" ? "kit degustação" : pote + " g" }}
+        </div>
+        <div class="img-container"></div>
+        <div class="preco-container">
+          {{ valores[i] / 100 | currency: "BRL":true }}
+        </div>
+      </mat-card>
+    </ng-container>
+  </div>
 </div>
