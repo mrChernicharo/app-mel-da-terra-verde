@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { fromEvent, of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
@@ -30,8 +32,9 @@ export class NewClienteDialogComponent implements OnInit {
     console.log('submit boy');
   }
 
-  saveCliente() {
+  saveCliente(event) {
     this.clientesService.addNewCliente(this.newClienteForm.value);
+    this.dialogRef.close(this.newClienteForm.value);
   }
 
   onCancel() {

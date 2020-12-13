@@ -44,7 +44,7 @@
     type="submit"
     mat-raised-button
     color="accent"
-    (click)="saveCliente()"
+    (click)="saveCliente($event)"
     [disabled]="newClienteForm.invalid"
   >
     Salvar Cliente

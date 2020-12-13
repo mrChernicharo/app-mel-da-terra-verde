@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { PedidosService } from 'src/app/services/pedidos.service';
 
 @Component({
   selector: 'app-new-pedido-dialog',
@@ -8,11 +11,18 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class NewPedidoDialogComponent implements OnInit {
   pedidoFormGroup: FormGroup;
+  today = new Date();
+  nextWeek = new Date().getTime() * 24 * 60 * 60 * 1000 * 6;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private pedidosService: PedidosService
+  ) {}
 
   get pedidos() {
-    return this.pedidoFormGroup.controls['consultas'] as FormArray;
+    return this.pedidoFormGroup.controls['pedidos'] as FormArray;
   }
 
   ngOnInit(): void {
@@ -23,5 +33,15 @@ export class NewPedidoDialogComponent implements OnInit {
       desconto: new FormControl(),
       produtos: this.formBuilder.array([]),
     });
+  }
+
+  savePedido() {
+    console.log(this.pedidoFormGroup.value);
+
+    // this.pedidosService
+  }
+
+  onCancel() {
+    this.dialogRef.close();
   }
 }

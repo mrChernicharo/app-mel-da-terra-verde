@@ -8,7 +8,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { delay, filter, tap } from 'rxjs/operators';
+import { delay, filter, map, tap } from 'rxjs/operators';
 import { Cliente } from 'src/app/pages/clientes/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { EditClienteDialogComponent } from './edit-cliente-dialog/edit-cliente-dialog.component';
@@ -41,19 +41,20 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadClientes().subscribe((data) => {
-      this.dataSource = new MatTableDataSource<Cliente>(data);
-    });
+    this.loadClientes();
   }
 
   ngAfterViewInit() {}
 
   loadClientes() {
-    return this.clientesService.fetchAllClientes();
+    return this.clientesService
+      .fetchAllClientes()
+      .subscribe(
+        (data) => (this.dataSource = new MatTableDataSource<Cliente>(data))
+      );
   }
 
   applyFilter(event: Event) {
-    console.log(event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -70,7 +71,10 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.newClienteAdded.emit(result);
+      if (result) {
+        this.newClienteAdded.emit(result);
+        this.loadClientes();
+      }
     });
   }
 
@@ -89,10 +93,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
       this.clienteEdited.emit(result);
     });
   }
-
-  // addCliente() {
-  //   this.clientesService.addNewClient();
-  // }
 
   // edit
   // this.clientesService.storedClientes.find(cliente => cliente.id === clienteId)

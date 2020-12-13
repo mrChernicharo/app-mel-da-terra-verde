@@ -1,1 +1,65 @@
 <p>new-pedido-dialog works!</p>
+
+<form [formGroup]="pedidoFormGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input
+      formControlName="nomeCliente"
+      type="text"
+      matInput
+      placeholder="Cliente"
+    />
+    <mat-icon matSuffix>person</mat-icon>
+    <mat-error>O nome é obrigatório</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Data Pedido</mat-label>
+    <input
+      formControlName="dataPedido"
+      type="date"
+      matInput
+      [placeholder]="today"
+    />
+    <mat-icon matSuffix>date</mat-icon>
+    <mat-error>A data é obrigatória</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Previsão Entrega</mat-label>
+    <input
+      formControlName="previsaoEntrega"
+      type="date"
+      matInput
+      [placeholder]="nextWeek"
+    />
+    <mat-icon matSuffix>date</mat-icon>
+    <mat-error>A data é obrigatória</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Desconto %</mat-label>
+    <input
+      formControlName="desconto"
+      type="number"
+      matInput
+      placeholder="0.0"
+    />
+    <!-- <mat-icon matSuffix>%</mat-icon> -->
+    <!-- <mat-error>A data é obrigatória</mat-error> -->
+  </mat-form-field>
+</form>
+
+<button
+  type="submit"
+  mat-raised-button
+  color="accent"
+  (click)="savePedido()"
+  [disabled]="pedidoFormGroup.invalid"
+>
+  Salvar Cliente
+</button>
+
+<button type="button" mat-raised-button (click)="onCancel()">
+  Cancelar
+</button>
