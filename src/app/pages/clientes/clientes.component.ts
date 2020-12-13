@@ -19,7 +19,7 @@ import { NewClienteDialogComponent } from './new-cliente-dialog/new-cliente-dial
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss'],
 })
-export class ClientesComponent implements OnInit, AfterViewInit {
+export class ClientesComponent implements OnInit {
   dataSource$: Observable<Cliente[]>;
   displayedColumns = [
     'position',
@@ -44,8 +44,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     this.loadClientes();
   }
 
-  ngAfterViewInit() {}
-
   loadClientes() {
     return this.clientesService
       .fetchAllClientes()
@@ -54,16 +52,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
       );
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   onAddCliente() {
-    this.openNewClienteDialog();
-  }
-
-  openNewClienteDialog() {
     const dialogRef = this.dialog.open(NewClienteDialogComponent, {
       panelClass: 'new-cliente-dialog',
       hasBackdrop: true,
@@ -78,11 +67,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onEditCliente(id) {
-    this.openEditClienteDialog(id);
-  }
-
-  openEditClienteDialog(clienteId: string) {
+  onEditCliente(clienteId: string) {
     const dialogRef = this.dialog.open(EditClienteDialogComponent, {
       panelClass: 'edit-cliente-dialog',
       hasBackdrop: true,
@@ -90,8 +75,15 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.clienteEdited.emit(result);
+      if (result) {
+        this.clienteEdited.emit(result);
+      }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   // edit

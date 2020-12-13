@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -12,7 +18,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 export class NewPedidoDialogComponent implements OnInit {
   pedidoFormGroup: FormGroup;
   today = new Date();
-  nextWeek = new Date().getTime() * 24 * 60 * 60 * 1000 * 6;
+  nextWeek = new Date(new Date().getTime() * 24 * 60 * 60 * 1000 * 6);
 
   constructor(
     private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
@@ -21,24 +27,48 @@ export class NewPedidoDialogComponent implements OnInit {
     private pedidosService: PedidosService
   ) {}
 
-  get pedidos() {
-    return this.pedidoFormGroup.controls['pedidos'] as FormArray;
+  get produtos() {
+    return this.pedidoFormGroup.get('produtos') as FormArray;
   }
 
   ngOnInit(): void {
-    this.pedidoFormGroup = this.formBuilder.group({
+    this.createPedidoForm();
+  }
+
+  createPedidoForm() {
+    return (this.pedidoFormGroup = this.formBuilder.group({
       nomeCliente: new FormControl(),
       dataPedido: new FormControl(),
       previsaoEntrega: new FormControl(),
       desconto: new FormControl(),
       produtos: this.formBuilder.array([]),
+    }));
+  }
+
+  newProdutoFormGroup() {
+    return this.formBuilder.group({
+      mel: new FormControl(),
+      pote: new FormControl(),
+      quantidade: new FormControl(),
     });
   }
 
-  savePedido() {
-    console.log(this.pedidoFormGroup.value);
+  onAddProduto() {
+    return this.produtos.push(this.newProdutoFormGroup());
+  }
 
-    // this.pedidosService
+  onDeleteProduto(index: number) {
+    return this.produtos.removeAt(index);
+  }
+
+  getProdutosControls() {
+    return this.produtos.controls;
+  }
+
+  savePedido() {
+    // console.log(this.pedidoFormGroup.value);
+    const newPedido = this.pedidoFormGroup.value;
+    this.pedidosService.addNewPedido(newPedido);
   }
 
   onCancel() {

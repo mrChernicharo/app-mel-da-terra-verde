@@ -33,4 +33,25 @@ export class PedidosService {
       })
     );
   }
+
+  addNewPedido({
+    nomeCliente,
+    dataPedido,
+    previsaoEntrega,
+    desconto,
+    produtos,
+  }: Pedido) {
+    console.log('addNewPedido');
+
+    const newPedido = {
+      nomeCliente,
+      dataPedido: new Date(dataPedido),
+      previsaoEntrega: new Date(previsaoEntrega),
+      desconto,
+      produtos,
+    };
+    console.log(newPedido);
+
+    this.db.collection('pedidos').add(newPedido);
+  }
 }

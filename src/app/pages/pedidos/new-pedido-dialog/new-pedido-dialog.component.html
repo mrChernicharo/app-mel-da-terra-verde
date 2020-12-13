@@ -1,4 +1,7 @@
-<p>new-pedido-dialog works!</p>
+<h1>Novo Pedido</h1>
+
+<h3>Cliente</h3>
+<hr />
 
 <form [formGroup]="pedidoFormGroup">
   <mat-form-field appearance="fill">
@@ -42,14 +45,65 @@
     <input
       formControlName="desconto"
       type="number"
+      min="1"
+      max="100"
       matInput
       placeholder="0.0"
     />
-    <!-- <mat-icon matSuffix>%</mat-icon> -->
-    <!-- <mat-error>A data é obrigatória</mat-error> -->
   </mat-form-field>
-</form>
 
+  <h3>Produtos</h3>
+  <hr />
+
+  <ng-container *ngIf="getProdutosControls().length === 0">
+    <button type="button" mat-mini-fab (click)="onAddProduto()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span>Adicionar produtos</span>
+  </ng-container>
+
+  <div
+    class="produto-form-group"
+    *ngFor="let produto of getProdutosControls(); let i = index"
+  >
+    <div class="produtos-section" [formGroup]="produto">
+      <button
+        type="button"
+        color="warn"
+        mat-mini-fab
+        (click)="onDeleteProduto(i)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mel</mat-label>
+        <input formControlName="mel" type="text" matInput placeholder="mel" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Pote</mat-label>
+        <input formControlName="pote" type="text" matInput placeholder="pote" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Quantidade</mat-label>
+        <input
+          formControlName="quantidade"
+          type="number"
+          min="1"
+          matInput
+          placeholder="quantidade"
+        />
+      </mat-form-field>
+
+      <button type="button" mat-mini-fab (click)="onAddProduto()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>
+<br /><br />
 <button
   type="submit"
   mat-raised-button
@@ -57,7 +111,7 @@
   (click)="savePedido()"
   [disabled]="pedidoFormGroup.invalid"
 >
-  Salvar Cliente
+  Criar Pedido
 </button>
 
 <button type="button" mat-raised-button (click)="onCancel()">
