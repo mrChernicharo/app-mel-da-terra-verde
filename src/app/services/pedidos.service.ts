@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { Pedido } from '../pages/pedidos/pedido.model';
 
@@ -46,8 +46,8 @@ export class PedidosService {
 
     const newPedido = {
       nomeCliente,
-      dataPedido: new Date(dataPedido),
-      previsaoEntrega: new Date(previsaoEntrega),
+      dataPedido: new Date(dataPedido as Date),
+      previsaoEntrega: new Date(previsaoEntrega as Date),
       desconto,
       produtos,
       valor,
@@ -57,5 +57,9 @@ export class PedidosService {
     console.log(newPedido);
 
     this.db.collection('pedidos').add(newPedido);
+  }
+
+  updatePedido(pedidoId: string, changes: Partial<Pedido>) {
+    return from(this.db.doc(`pedidos/${pedidoId}`).update(changes));
   }
 }

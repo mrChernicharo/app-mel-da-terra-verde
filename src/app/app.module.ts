@@ -14,14 +14,18 @@ import { AppComponent } from './app.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 
 import { HeaderComponent } from './shared/header/header.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
@@ -34,15 +38,14 @@ import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
 import { registerLocaleData } from '@angular/common';
 import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
 import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewPedidoDialogComponent } from './pages/pedidos/new-pedido-dialog/new-pedido-dialog.component';
 import { CustomDatePipe } from './shared/custom-date.pipe';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { EditPedidoDialogComponent } from './pages/pedidos/edit-pedido-dialog/edit-pedido-dialog.component';
 
 registerLocaleData(localePt);
 
 const matModules = [
+  MatNativeDateModule,
   MatButtonModule,
   MatDialogModule,
   MatIconModule,
@@ -55,6 +58,7 @@ const matModules = [
   MatSelectModule,
   MatOptionModule,
   MatSidenavModule,
+  MatSlideToggleModule,
   MatTableModule,
   MatToolbarModule,
 ];
@@ -74,6 +78,7 @@ const matModules = [
     EditClienteDialogComponent,
     NewPedidoDialogComponent,
     CustomDatePipe,
+    EditPedidoDialogComponent,
   ],
   imports: [
     BrowserModule,

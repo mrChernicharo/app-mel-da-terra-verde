@@ -1,0 +1,55 @@
+<span>Pedido de {{ data.nomeCliente }}</span>
+<span
+  >&nbsp;pedido realizado em
+  {{ data.dataPedido | serverTimestamp | customDate: "dd/mm/yyyy" }}</span
+>
+
+<form [formGroup]="editPedidoForm">
+  <mat-form-field class="status" appearance="standard">
+    <mat-label>Status Pedido</mat-label>
+    <mat-select
+      [formControl]="editPedidoForm.get('status')"
+      matInput
+      [placeholder]="data.status"
+    >
+      <mat-option *ngFor="let status of allStatus" [value]="status">{{
+        status
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="previsao-entrega" appearance="legacy">
+    <mat-label>Previsão de Entrega</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="editPedidoForm.get('previsaoEntrega')"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker
+      color="primary"
+      [value]="data.previsaoEntrega"
+    ></mat-datepicker>
+  </mat-form-field>
+
+  <mat-label>Pago</mat-label>
+  <mat-slide-toggle formControlName="pago" [value]="data.pago">
+  </mat-slide-toggle>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="accent"
+    (click)="saveChanges()"
+    [disabled]="editPedidoForm.invalid"
+  >
+    Salvar Alterações
+  </button>
+
+  <button type="button" mat-raised-button (click)="onCancel()">
+    Cancelar
+  </button>
+  <br />
+  <br />
+</form>

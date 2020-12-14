@@ -8,6 +8,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
+import { EditPedidoDialogComponent } from './edit-pedido-dialog/edit-pedido-dialog.component';
 import { Pedido } from './pedido.model';
 
 @Component({
@@ -29,6 +30,9 @@ export class PedidosComponent implements OnInit {
 
   @Output()
   newPedidoAdded = new EventEmitter<Pedido>();
+
+  @Output()
+  pedidoEdited = new EventEmitter<Pedido>();
 
   constructor(
     private dialog: MatDialog,
@@ -68,12 +72,29 @@ export class PedidosComponent implements OnInit {
     });
   }
 
+  openEditDialog(row) {
+    console.log(row);
+
+    const pedidoId = row.id;
+    console.log(pedidoId);
+
+    const dialogRef = this.dialog.open(EditPedidoDialogComponent, {
+      panelClass: 'edit-pedido-dialog',
+      hasBackdrop: true,
+      autoFocus: true,
+      data: row,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.pedidoEdited.emit(result);
+        this.loadPedidos();
+      }
+    });
+  }
+
   applyFilter(event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  openEditDialog() {
-    console.log('heey');
   }
 }

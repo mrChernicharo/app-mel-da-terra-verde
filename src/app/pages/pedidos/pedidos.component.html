@@ -77,9 +77,10 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="openEditDialog()"
+      (click)="openEditDialog(row)"
     ></tr>
   </table>
+
   <!--
   <mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="position">
