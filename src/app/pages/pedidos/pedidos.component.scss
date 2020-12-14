@@ -49,4 +49,24 @@ div.page-container {
       background-color: rgb(218, 172, 72);
     }
   }
+
+  table {
+    // width: 100%;
+    width: calc(100% - 18px);
+  }
+
+  // tbody {
+  tr.mat-row {
+    height: 34px;
+
+    &:hover {
+      background-color: rgba(222, 222, 222, 0.8);
+      cursor: pointer;
+    }
+
+    td.mat-cell {
+      font-size: 12px;
+    }
+  }
+  // }
 }

@@ -72,4 +72,8 @@ export class PedidosComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  openEditDialog() {
+    console.log('heey');
+  }
 }
