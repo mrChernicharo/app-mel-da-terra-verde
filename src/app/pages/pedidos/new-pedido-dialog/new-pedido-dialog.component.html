@@ -1,119 +1,136 @@
-<h1>Novo Pedido</h1>
+<mat-dialog-content>
+  <h1>Novo Pedido</h1>
 
-<h3>Cliente</h3>
-<hr />
+  <h3>Cliente</h3>
+  <hr style="border-top: 1px dashed;" />
 
-<form [formGroup]="pedidoFormGroup">
-  <mat-form-field appearance="fill">
-    <mat-label>Cliente</mat-label>
-    <input
-      formControlName="nomeCliente"
-      type="text"
-      matInput
-      placeholder="Cliente"
-    />
-    <mat-icon matSuffix>person</mat-icon>
-    <mat-error>O nome é obrigatório</mat-error>
-  </mat-form-field>
+  <form [formGroup]="pedidoFormGroup">
+    <mat-form-field class="cliente" appearance="standard">
+      <mat-label>Cliente</mat-label>
+      <mat-select formControlName="nomeCliente" matInput>
+        <mat-option *ngFor="let cliente of clientes" [value]="cliente">{{
+          cliente
+        }}</mat-option>
+      </mat-select>
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error>O nome é obrigatório</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Data Pedido</mat-label>
-    <input
-      formControlName="dataPedido"
-      type="date"
-      matInput
-      [placeholder]="today"
-    />
-    <mat-icon matSuffix>date</mat-icon>
-    <mat-error>A data é obrigatória</mat-error>
-  </mat-form-field>
+    <mat-form-field class="data" appearance="standard">
+      <mat-label>Data Pedido</mat-label>
+      <input
+        formControlName="dataPedido"
+        type="date"
+        matInput
+        placeholder="dd/mm/aaaa"
+        [value]="today"
+      />
+      <mat-icon matSuffix>date</mat-icon>
+      <mat-error>A data é obrigatória</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Previsão Entrega</mat-label>
-    <input
-      formControlName="previsaoEntrega"
-      type="date"
-      matInput
-      [placeholder]="nextWeek"
-    />
-    <mat-icon matSuffix>date</mat-icon>
-    <mat-error>A data é obrigatória</mat-error>
-  </mat-form-field>
+    <mat-form-field class="data" appearance="standard">
+      <mat-label>Previsão Entrega</mat-label>
+      <input
+        formControlName="previsaoEntrega"
+        type="date"
+        matInput
+        placeholder="dd/mm/aaaa"
+        [value]="nextWeek"
+      />
+      <mat-icon matSuffix>date</mat-icon>
+      <mat-error>A data é obrigatória</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Desconto %</mat-label>
-    <input
-      formControlName="desconto"
-      type="number"
-      min="0"
-      max="100"
-      matInput
-      placeholder="0.0"
-    />
-  </mat-form-field>
+    <mat-form-field class="desconto" appearance="standard">
+      <mat-label>Desconto %</mat-label>
+      <input
+        formControlName="desconto"
+        type="number"
+        min="0"
+        max="100"
+        matInput
+        placeholder="0.0"
+      />
+    </mat-form-field>
 
-  <h3>Produtos</h3>
-  <hr />
+    <!-- ////////////////////////////////////////////////////// -->
 
-  <ng-container *ngIf="getProdutosControls().length === 0">
-    <button type="button" mat-mini-fab (click)="onAddProduto()">
-      <mat-icon>add</mat-icon>
-    </button>
-    <span>Adicionar produtos</span>
-  </ng-container>
+    <h3>Produtos</h3>
+    <hr style="border-top: 1px dashed;" />
 
-  <div
-    class="produto-form-group"
-    *ngFor="let produto of getProdutosControls(); let i = index"
-  >
-    <div class="produtos-section" [formGroup]="produto">
-      <button
-        type="button"
-        color="warn"
-        mat-mini-fab
-        (click)="onDeleteProduto(i)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Mel</mat-label>
-        <input formControlName="mel" type="text" matInput placeholder="mel" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Pote</mat-label>
-        <input formControlName="pote" type="text" matInput placeholder="pote" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Quantidade</mat-label>
-        <input
-          formControlName="quantidade"
-          type="number"
-          min="1"
-          matInput
-          placeholder="quantidade"
-        />
-      </mat-form-field>
-
+    <ng-container *ngIf="getProdutosControls().length === 0">
       <button type="button" mat-mini-fab (click)="onAddProduto()">
         <mat-icon>add</mat-icon>
       </button>
-    </div>
-  </div>
-</form>
-<br /><br />
-<button
-  type="submit"
-  mat-raised-button
-  color="accent"
-  (click)="savePedido()"
-  [disabled]="pedidoFormGroup.invalid"
->
-  Criar Pedido
-</button>
+      <span class="no-produtos">Adicionar produtos</span>
+    </ng-container>
 
-<button type="button" mat-raised-button (click)="onCancel()">
-  Cancelar
-</button>
+    <div
+      class="produto-form-group"
+      *ngFor="let produto of getProdutosControls(); let i = index"
+    >
+      <div class="produtos-section" [formGroup]="produto">
+        <button
+          type="button"
+          color="warn"
+          mat-mini-fab
+          (click)="onDeleteProduto(i)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <mat-form-field class="mel" appearance="standard">
+          <mat-label>Mel</mat-label>
+          <mat-select formControlName="mel" matInput placeholder="mel">
+            <mat-option *ngFor="let mel of meles" [value]="mel">{{
+              mel
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="pote" appearance="standard">
+          <mat-label>Pote</mat-label>
+          <mat-select formControlName="pote" matInput placeholder="pote">
+            <mat-option
+              *ngFor="let pote of potes; let i = index"
+              [value]="pote"
+              >{{ potesNames[i] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="standard">
+          <mat-label>Quantidade</mat-label>
+          <input
+            formControlName="quantidade"
+            type="number"
+            min="1"
+            matInput
+            placeholder="quantidade"
+          />
+        </mat-form-field>
+
+        <button type="button" mat-mini-fab (click)="onAddProduto()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <br /><br />
+  <button
+    type="submit"
+    mat-raised-button
+    color="accent"
+    (click)="savePedido()"
+    [disabled]="pedidoFormGroup.invalid"
+  >
+    Criar Pedido
+  </button>
+
+  <button type="button" mat-raised-button (click)="onCancel()">
+    Cancelar
+  </button>
+  <br />
+  <br />
+</mat-dialog-content>

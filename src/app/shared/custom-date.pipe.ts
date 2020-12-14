@@ -11,7 +11,9 @@ export class CustomDatePipe implements PipeTransform {
 
     switch (config) {
       case 'dd/mm/yyyy':
-        formatedDate = `${date.toLocaleDateString()}`;
+        formatedDate = `${date.getDate()}/${
+          date.getMonth() + 1
+        }/${date.getFullYear()}`;
         break;
     }
 

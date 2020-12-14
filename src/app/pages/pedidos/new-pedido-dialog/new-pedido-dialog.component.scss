@@ -1,0 +1,33 @@
+span.no-produtos {
+  margin-left: 14px;
+}
+
+mat-form-field {
+  font-size: 13px;
+
+  &.cliente {
+    width: 260px;
+  }
+
+  &.data {
+    width: 166px;
+  }
+
+  &.desconto {
+    width: 100px;
+  }
+
+  &.mel {
+    width: 160px;
+    margin-left: 14px;
+  }
+
+  &.pote {
+    width: 160px;
+  }
+
+  &.quantidade {
+    width: 100px;
+    margin-right: 14px;
+  }
+}

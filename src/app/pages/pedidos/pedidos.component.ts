@@ -1,5 +1,10 @@
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
+} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
@@ -51,6 +56,8 @@ export class PedidosComponent implements OnInit {
       panelClass: 'new-pedido-dialog',
       hasBackdrop: true,
       autoFocus: true,
+      minWidth: 360,
+      // scrollStrategy:
     });
 
     dialogRef.afterClosed().subscribe((result) => {
