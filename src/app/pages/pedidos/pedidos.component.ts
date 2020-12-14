@@ -1,5 +1,11 @@
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -16,7 +22,7 @@ import { Pedido } from './pedido.model';
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.scss'],
 })
-export class PedidosComponent implements OnInit {
+export class PedidosComponent implements OnInit, OnDestroy {
   displayedColumns = [
     'position',
     'nome',
@@ -97,4 +103,6 @@ export class PedidosComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  ngOnDestroy() {}
 }

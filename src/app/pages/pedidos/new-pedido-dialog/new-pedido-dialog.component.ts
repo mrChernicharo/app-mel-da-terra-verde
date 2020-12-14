@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
@@ -22,6 +24,7 @@ export class NewPedidoDialogComponent implements OnInit {
   today = new Date();
   nextWeek = new Date(new Date().getTime() * 24 * 60 * 60 * 1000 * 6);
   clientes: string[];
+  clientesNames$: Observable<string[]>;
   meles: string[];
   potes: string[];
   potesNames: string[];
@@ -47,10 +50,14 @@ export class NewPedidoDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPedidoForm();
-    this.clientes = this.clientesService.storedClientes.map(
-      (cliente) => cliente.nome
+
+    this.clientesNames$ = this.clientesService.appClientes$.pipe(
+      map((clientes) => {
+        return clientes.map((cliente) => cliente.nome);
+      })
     );
-    console.log(this.clientes);
+
+    // console.log(this.clientes);
   }
 
   createPedidoForm() {
@@ -88,6 +95,7 @@ export class NewPedidoDialogComponent implements OnInit {
     this.pedidoFormGroup.get('valor').setValue(this.getPedidoTotalValue());
 
     this.pedidosService.addNewPedido(this.pedidoFormGroup.value);
+
     this.dialogRef.close(this.pedidoFormGroup.value);
   }
 

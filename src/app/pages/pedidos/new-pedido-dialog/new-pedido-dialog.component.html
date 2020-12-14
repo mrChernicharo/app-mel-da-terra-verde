@@ -8,9 +8,11 @@
     <mat-form-field class="cliente" appearance="standard">
       <mat-label>Cliente</mat-label>
       <mat-select formControlName="nomeCliente" matInput>
-        <mat-option *ngFor="let cliente of clientes" [value]="cliente">{{
-          cliente
-        }}</mat-option>
+        <mat-option
+          *ngFor="let cliente of clientesNames$ | async"
+          [value]="cliente"
+          >{{ cliente }}</mat-option
+        >
       </mat-select>
       <mat-icon matSuffix>person</mat-icon>
       <mat-error>O nome é obrigatório</mat-error>

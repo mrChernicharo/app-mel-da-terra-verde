@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, of, pipe } from 'rxjs';
+import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { delay, map, take, takeLast, tap } from 'rxjs/operators';
 import { Cliente } from '../pages/clientes/cliente.model';
 import { StoreService } from './store.service';
@@ -10,7 +10,10 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class ClientesService {
-  public storedClientes: Cliente[] = [];
+  // public storedClientes: Cliente[] = [];
+
+  private clientesSubject$ = new BehaviorSubject<Cliente[]>([]);
+  public appClientes$ = this.clientesSubject$.asObservable();
 
   constructor(
     private storeService: StoreService,
@@ -34,8 +37,7 @@ export class ClientesService {
       }),
       take(1),
       tap((clientes) => {
-        this.storedClientes = clientes;
-        console.log(this.storedClientes);
+        this.clientesSubject$.next(clientes);
       })
     );
   }

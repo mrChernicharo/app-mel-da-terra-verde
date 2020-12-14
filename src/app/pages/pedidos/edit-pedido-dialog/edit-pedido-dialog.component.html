@@ -1,7 +1,11 @@
-<span>Pedido de {{ data.nomeCliente }}</span>
 <span
-  >&nbsp;pedido realizado em
-  {{ data.dataPedido | serverTimestamp | customDate: "dd/mm/yyyy" }}</span
+  >Pedido de <strong>{{ data.nomeCliente }}</strong></span
+>
+<span
+  >&nbsp;realizado em
+  <strong>{{
+    data.dataPedido | serverTimestamp | customDate: "dd/mm/yyyy"
+  }}</strong></span
 >
 
 <form [formGroup]="editPedidoForm">
@@ -34,7 +38,11 @@
   </mat-form-field>
 
   <mat-label>Pago</mat-label>
-  <mat-slide-toggle formControlName="pago" [value]="data.pago">
+  <mat-slide-toggle
+    formControlName="pago"
+    color="primary"
+    [(ngModel)]="data.pago"
+  >
   </mat-slide-toggle>
 
   <button
