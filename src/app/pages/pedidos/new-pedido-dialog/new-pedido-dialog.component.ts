@@ -67,7 +67,7 @@ export class NewPedidoDialogComponent implements OnInit {
   }
 
   savePedido() {
-    this.pedidoFormGroup.get('valor').setValue(10000);
+    this.pedidoFormGroup.get('valor').setValue(this.getPedidoTotalValue());
 
     this.pedidosService.addNewPedido(this.pedidoFormGroup.value);
     this.dialogRef.close(this.pedidoFormGroup.value);
@@ -75,5 +75,24 @@ export class NewPedidoDialogComponent implements OnInit {
 
   onCancel() {
     this.dialogRef.close();
+  }
+
+  getPedidoTotalValue() {
+    return this.produtos.controls.reduce((acc, next) => {
+      switch (next.get('pote').value) {
+        case 'kit':
+          return acc + 4000 * next.get('quantidade').value;
+        case '150':
+          return acc + 1800 * next.get('quantidade').value;
+        case '350':
+          return acc + 2800 * next.get('quantidade').value;
+        case '480':
+          return acc + 3500 * next.get('quantidade').value;
+        case '780':
+          return acc + 4800 * next.get('quantidade').value;
+        default:
+          return acc + 0;
+      }
+    }, 0);
   }
 }

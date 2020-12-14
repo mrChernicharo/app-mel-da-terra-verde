@@ -76,4 +76,72 @@
 
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <!--
+  <mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let pedido; let i = index">{{
+        i + 1
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+      <mat-header-cell mat-header-cell *matHeaderCellDef
+        >cliente</mat-header-cell
+      >
+      <mat-cell mat-cell *matCellDef="let pedido">{{
+        pedido?.nomeCliente
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell mat-header-cell *matHeaderCellDef
+        >status</mat-header-cell
+      >
+      <mat-cell mat-cell *matCellDef="let pedido">
+        {{ pedido?.status }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="valor">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>valor</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let pedido">
+        {{ pedido?.valor / 100 | currency: "BRL":true }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dataPedido">
+      <mat-header-cell mat-header-cell *matHeaderCellDef
+        >pedido em</mat-header-cell
+      >
+      <mat-cell mat-cell *matCellDef="let pedido">
+        {{ pedido?.dataPedido | serverTimestamp | customDate: "dd/mm/yyyy" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="previsaoEntrega">
+      <mat-header-cell mat-header-cell *matHeaderCellDef
+        >previsão entrega</mat-header-cell
+      >
+      <mat-cell mat-cell *matCellDef="let pedido">
+        {{
+          pedido?.previsaoEntrega | serverTimestamp | customDate: "dd/mm/yyyy"
+        }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pago">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>pago</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let pedido">
+        <div
+          [ngClass]="pedido?.pago ? 'pago-true' : 'pago-false'"
+          class="pago-icon"
+        ></div>
+      </mat-cell>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </mat-table> -->
 </div>
