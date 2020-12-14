@@ -1,5 +1,5 @@
 <span
-  >Pedido de <strong>{{ data.nomeCliente }}</strong></span
+  >Pedido de <strong>{{ data.nomeCliente | titlecase }}</strong></span
 >
 <span
   >&nbsp;realizado em
@@ -37,27 +37,33 @@
     ></mat-datepicker>
   </mat-form-field>
 
-  <mat-label>Pago</mat-label>
-  <mat-slide-toggle
-    formControlName="pago"
-    color="primary"
-    [(ngModel)]="data.pago"
-  >
-  </mat-slide-toggle>
+  <div class="slide-toggle-container">
+    <mat-label>Tá pago?&nbsp;&nbsp;&nbsp;</mat-label>
+    <mat-slide-toggle
+      formControlName="pago"
+      color="primary"
+      [(ngModel)]="data.pago"
+    >
+    </mat-slide-toggle>
+    <span class="sim-nao">{{ data.pago ? "Sim!" : "Não" }}</span>
+  </div>
 
-  <button
-    type="submit"
-    mat-raised-button
-    color="accent"
-    (click)="saveChanges()"
-    [disabled]="editPedidoForm.invalid"
-  >
-    Salvar Alterações
-  </button>
-
-  <button type="button" mat-raised-button (click)="onCancel()">
-    Cancelar
-  </button>
   <br />
+
+  <div class="btn-container">
+    <button
+      type="submit"
+      mat-raised-button
+      color="accent"
+      (click)="saveChanges()"
+      [disabled]="editPedidoForm.invalid"
+    >
+      Salvar Alterações
+    </button>
+
+    <button type="button" mat-raised-button (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
   <br />
 </form>

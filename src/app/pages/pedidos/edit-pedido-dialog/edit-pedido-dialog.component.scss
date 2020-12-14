@@ -1,0 +1,20 @@
+form {
+  display: flex;
+  flex-direction: column;
+
+  .slide-toggle-container {
+    // border: 1px solid orange;
+    text-align: end;
+
+    span.sim-nao {
+      margin-left: 8px;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    button {
+      margin-right: 10px;
+    }
+  }
+}
