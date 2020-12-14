@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { produtosImgUrls, TransparentBGBannerUrl } from 'src/assets/img.paths';
 import { Produto } from './produto.model';
 
 @Component({
@@ -7,17 +9,21 @@ import { Produto } from './produto.model';
   styleUrls: ['./produtos.component.scss'],
 })
 export class ProdutosComponent implements OnInit {
-  // produto: Produto;
   potes = ['kit', '150', '350', '480', '780'];
+  prodImgs = {
+    kit: produtosImgUrls['kit'],
+    '150': produtosImgUrls['150'],
+    '350': produtosImgUrls['350'],
+    '480': produtosImgUrls['480'],
+    '780': produtosImgUrls['780'],
+  };
+
   valores = [4000, 1800, 2800, 3500, 4800];
   meles = ['laranjeira', 'eucalípto', 'uruçá', 'jataí'];
-  constructor() {}
 
-  ngOnInit(): void {
-    // this.produto = {
-    //   mel: 'silvestre',
-    //   pote: 'kit',
-    //   valor: 4000,
-    // };
-  }
+  bannerImg = TransparentBGBannerUrl;
+
+  constructor(private storage: AngularFireStorage) {}
+
+  ngOnInit(): void {}
 }

@@ -1,7 +1,56 @@
 div.page-container {
-  height: calc(100% - 16px);
+  // height: calc(100% - 16px);
+  padding-top: 64px;
   display: flex;
+  flex-direction: column;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
+
+  span.page-title {
+    position: absolute;
+    top: 78px;
+    left: 24px;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .banner-container {
+    border-bottom: 2px solid orange;
+    border-top: 2px solid orange;
+    width: 100%;
+    display: flex;
+    background: #ffdc00;
+    justify-content: center;
+  }
+
+  .section-title-container {
+    width: 100%;
+    padding: 12px;
+
+    span.section-title {
+      margin-left: 26px;
+      font-size: 20px;
+    }
+  }
+
+  .potes-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: unset;
+    justify-content: center;
+
+    .pote-card {
+      margin: 10px;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .meles-container {
+    display: flex;
+  }
 }

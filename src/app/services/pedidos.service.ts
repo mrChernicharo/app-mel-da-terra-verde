@@ -40,7 +40,8 @@ export class PedidosService {
     previsaoEntrega,
     desconto,
     produtos,
-  }: Pedido) {
+    valor,
+  }: Omit<Pedido, 'id' | 'idCliente' | 'pago' | 'status'>) {
     console.log('addNewPedido');
 
     const newPedido = {
@@ -49,6 +50,9 @@ export class PedidosService {
       previsaoEntrega: new Date(previsaoEntrega),
       desconto,
       produtos,
+      valor,
+      status: 'pendente',
+      pago: false,
     };
     console.log(newPedido);
 

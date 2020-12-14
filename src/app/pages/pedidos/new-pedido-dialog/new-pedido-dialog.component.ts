@@ -42,6 +42,7 @@ export class NewPedidoDialogComponent implements OnInit {
       previsaoEntrega: new FormControl(),
       desconto: new FormControl(),
       produtos: this.formBuilder.array([]),
+      valor: 0,
     }));
   }
 
@@ -66,9 +67,10 @@ export class NewPedidoDialogComponent implements OnInit {
   }
 
   savePedido() {
-    // console.log(this.pedidoFormGroup.value);
-    const newPedido = this.pedidoFormGroup.value;
-    this.pedidosService.addNewPedido(newPedido);
+    this.pedidoFormGroup.get('valor').setValue(10000);
+
+    this.pedidosService.addNewPedido(this.pedidoFormGroup.value);
+    this.dialogRef.close(this.pedidoFormGroup.value);
   }
 
   onCancel() {

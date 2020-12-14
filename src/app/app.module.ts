@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/n
 import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewPedidoDialogComponent } from './pages/pedidos/new-pedido-dialog/new-pedido-dialog.component';
+import { CustomDatePipe } from './shared/custom-date.pipe';
 
 registerLocaleData(localePt);
 
@@ -67,6 +69,7 @@ const matModules = [
     NewClienteDialogComponent,
     EditClienteDialogComponent,
     NewPedidoDialogComponent,
+    CustomDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ const matModules = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ...matModules,
   ],
   providers: [

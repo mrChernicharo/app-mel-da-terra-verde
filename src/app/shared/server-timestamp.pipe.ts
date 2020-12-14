@@ -9,7 +9,7 @@ export interface IServerTimestamp {
   name: 'serverTimestamp',
 })
 export class ServerTimestampPipe implements PipeTransform {
-  transform(timestamp: IServerTimestamp, ...args: unknown[]): Date {
+  transform(timestamp: IServerTimestamp): Date {
     const date = new Date(timestamp.seconds * 1000);
 
     return date;

@@ -20,27 +20,26 @@ export class PedidosComponent implements OnInit {
     'valor',
     'pago',
   ];
-  dataSource;
+  dataSource: any;
 
   @Output()
   newPedidoAdded = new EventEmitter<Pedido>();
+
   constructor(
     private dialog: MatDialog,
     private pedidosService: PedidosService
   ) {}
 
   ngOnInit(): void {
-    this.loadPedidos().subscribe((data) => {
-      this.dataSource = new MatTableDataSource<Pedido>(data);
-    });
+    this.loadPedidos();
   }
 
   loadPedidos() {
-    return this.pedidosService.fetchAllPedidos();
-  }
-  applyFilter(event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    return this.pedidosService
+      .fetchAllPedidos()
+      .subscribe(
+        (data) => (this.dataSource = new MatTableDataSource<Pedido>(data))
+      );
   }
 
   onAddPedido() {
@@ -55,7 +54,15 @@ export class PedidosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.newPedidoAdded.emit(result);
+      if (result) {
+        this.newPedidoAdded.emit(result);
+        this.loadPedidos();
+      }
     });
+  }
+
+  applyFilter(event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
