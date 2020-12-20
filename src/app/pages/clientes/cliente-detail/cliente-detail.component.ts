@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Cliente } from '../cliente.model';
 
 @Component({
   selector: 'app-cliente-detail',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cliente-detail.component.scss'],
 })
 export class ClienteDetailComponent implements OnInit {
+  @Input() cliente: Cliente;
+
   constructor() {}
 
   ngOnInit(): void {}

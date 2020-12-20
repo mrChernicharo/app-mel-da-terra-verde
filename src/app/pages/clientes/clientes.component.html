@@ -21,7 +21,11 @@
   </div>
   <div class="clientes-card-container">
     <ng-container *ngIf="clientes$ | async as clientes">
-      <mat-card class="cliente-card" *ngFor="let cliente of clientes">
+      <mat-card
+        class="cliente-card"
+        *ngFor="let cliente of clientes"
+        (click)="showClienteDetails(cliente.id)"
+      >
         <div class="card-line card-header">
           <mat-icon matPrefix>person</mat-icon>
           {{ cliente.nome }}
@@ -37,9 +41,17 @@
     </ng-container>
   </div>
 
-  <div class="cliente-detail-container">
-    <app-cliente-detail></app-cliente-detail>
-  </div>
+  <ng-container *ngIf="selectedCliente; else placeholder">
+    <div class="cliente-detail-container">
+      <app-cliente-detail [cliente]="selectedCliente"></app-cliente-detail>
+    </div>
+  </ng-container>
+
+  <ng-template #placeholder>
+    <div class="cliente-detail-container">
+      <p>Selecione um cliente</p>
+    </div>
+  </ng-template>
 
   <!-- <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8"> -->
   <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

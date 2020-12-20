@@ -26,7 +26,7 @@ div.page-container {
   .search-bar-container {
     border: 1px solid blue;
     display: flex;
-    margin: -56px 0 0 0;
+    margin: -12px 0 0 0;
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -88,6 +88,6 @@ div.page-container {
     border: 1px solid red;
     box-sizing: border-box;
     width: calc(100vw - 4px);
-    height: 400px;
+    height: 100%;
   }
 }

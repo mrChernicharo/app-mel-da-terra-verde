@@ -50,6 +50,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
   clientes$: Observable<Cliente[]>;
   // dataSource: any;
   destroySubject$ = new Subject<boolean>();
+  selectedCliente: Cliente;
 
   constructor(
     private clientesService: ClientesService,
@@ -122,6 +123,25 @@ export class ClientesComponent implements OnInit, OnDestroy {
         filterValue = '';
       })
     );
+  }
+
+  showClienteDetails(clienteId) {
+    console.log(clienteId);
+    // this.clientes$.pipe(
+    //   map((clientes) => {
+    //     console.log(clientes);
+    //     return (this.selectedCliente = clientes.find(
+    //       (cliente) => cliente.id === clienteId
+    //     ));
+    //   })
+    // );
+    this.clientes$.subscribe(
+      (clientes) =>
+        (this.selectedCliente = clientes.find(
+          (cliente) => cliente.id === clienteId
+        ))
+    );
+    console.log(this.selectedCliente);
   }
 
   ngOnDestroy() {
