@@ -25,7 +25,6 @@ import {
 } from 'rxjs/operators';
 import { Cliente } from 'src/app/pages/clientes/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { EditClienteDialogComponent } from './edit-cliente-dialog/edit-cliente-dialog.component';
 import { NewClienteDialogComponent } from './new-cliente-dialog/new-cliente-dialog.component';
 
 @Component({
@@ -87,17 +86,16 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
   onEditCliente(clienteId: string) {
-    const dialogRef = this.dialog.open(EditClienteDialogComponent, {
-      panelClass: 'edit-cliente-dialog',
-      hasBackdrop: true,
-      autoFocus: true,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.clienteEdited.emit(result);
-      }
-    });
+    // const dialogRef = this.dialog.open(EditClienteDialogComponent, {
+    //   panelClass: 'edit-cliente-dialog',
+    //   hasBackdrop: true,
+    //   autoFocus: true,
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.clienteEdited.emit(result);
+    //   }
+    // });
   }
 
   applyFilter(event: Event) {

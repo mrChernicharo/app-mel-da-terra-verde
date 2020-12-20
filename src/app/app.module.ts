@@ -1,9 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -27,20 +29,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 
+import { CustomDatePipe } from './shared/custom-date.pipe';
+import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
+
 import { HeaderComponent } from './shared/header/header.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
+
 import { HomeComponent } from './pages/home/home.component';
-import { ClientesComponent } from './pages/clientes/clientes.component';
-import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { AuthComponent } from './pages/auth/auth.component';
-import { ProdutosComponent } from './pages/produtos/produtos.component';
-import { ServerTimestampPipe } from './shared/server-timestamp.pipe';
-import { registerLocaleData } from '@angular/common';
+
+import { ClientesComponent } from './pages/clientes/clientes.component';
 import { NewClienteDialogComponent } from './pages/clientes/new-cliente-dialog/new-cliente-dialog.component';
-import { EditClienteDialogComponent } from './pages/clientes/edit-cliente-dialog/edit-cliente-dialog.component';
+import { ClienteDetailComponent } from './pages/clientes/cliente-detail/cliente-detail.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { NewPedidoDialogComponent } from './pages/pedidos/new-pedido-dialog/new-pedido-dialog.component';
-import { CustomDatePipe } from './shared/custom-date.pipe';
 import { EditPedidoDialogComponent } from './pages/pedidos/edit-pedido-dialog/edit-pedido-dialog.component';
+import { ProdutosComponent } from './pages/produtos/produtos.component';
 
 registerLocaleData(localePt);
 
@@ -75,7 +79,7 @@ const matModules = [
     ProdutosComponent,
     ServerTimestampPipe,
     NewClienteDialogComponent,
-    EditClienteDialogComponent,
+    ClienteDetailComponent,
     NewPedidoDialogComponent,
     CustomDatePipe,
     EditPedidoDialogComponent,

@@ -1,5 +1,5 @@
 div.page-container {
-  // height: calc(100% - 16px);
+  height: calc(100vh - 90px);
   padding: 80px 0 0 0;
   display: flex;
   flex-direction: column;
@@ -24,41 +24,70 @@ div.page-container {
   }
 
   .search-bar-container {
+    border: 1px solid blue;
     display: flex;
-    border: 1px solid #707000;
-    padding: 1px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    margin: -56px 0 0 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
 
-    input.search-bar {
-      border: none;
-      outline: none;
-    }
-    .search-icon {
-      pointer-events: none;
-      border: none;
+    .search-bar {
+      display: flex;
+      border: 1px solid #707000;
+      padding: 1px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+
+      input.search-bar-input {
+        border: none;
+        outline: none;
+      }
+      .search-icon {
+        pointer-events: none;
+        border: none;
+      }
     }
   }
 
   .clientes-card-container {
     border: 1px solid orange;
     display: flex;
-    position: fixed;
-    top: 190px;
+    min-height: 148px;
     left: 0;
     width: 100%;
     overflow-x: scroll;
 
-    .card-line {
-      padding: 4px;
-      font-size: 14px;
-      display: flex;
-      color: #707070;
+    .cliente-card {
+      padding: 8px;
+      margin: 3px;
 
-      &.card-header {
-        font-size: 18px;
-        color: black;
+      &:hover {
+        background-color: rgba(222, 222, 222, 0.9);
+        cursor: pointer;
+      }
+
+      mat-icon {
+        vertical-align: middle;
+        font-size: 19px;
+      }
+      .card-line {
+        padding: 4px;
+        font-size: 14px;
+        display: flex;
+        color: #707070;
+
+        &.card-header {
+          font-size: 18px;
+          color: black;
+        }
       }
     }
+  }
+
+  .cliente-detail-container {
+    border: 1px solid red;
+    box-sizing: border-box;
+    width: calc(100vw - 4px);
+    height: 400px;
   }
 }
