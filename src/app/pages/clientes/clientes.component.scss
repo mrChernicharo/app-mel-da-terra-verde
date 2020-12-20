@@ -40,11 +40,25 @@ div.page-container {
     }
   }
 
-  .cliente-row {
-    border: 2px solid purple;
+  .clientes-card-container {
+    border: 1px solid orange;
+    display: flex;
+    position: fixed;
+    top: 190px;
+    left: 0;
+    width: 100%;
+    overflow-x: scroll;
 
-    &:hover {
-      opacity: 0.7;
+    .card-line {
+      padding: 4px;
+      font-size: 14px;
+      display: flex;
+      color: #707070;
+
+      &.card-header {
+        font-size: 18px;
+        color: black;
+      }
     }
   }
 }

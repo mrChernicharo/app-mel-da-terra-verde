@@ -8,7 +8,21 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, filter, map, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  delay,
+  filter,
+  first,
+  last,
+  map,
+  switchMap,
+  take,
+  takeLast,
+  takeUntil,
+  takeWhile,
+  tap,
+  throttleTime,
+} from 'rxjs/operators';
 import { Cliente } from 'src/app/pages/clientes/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { EditClienteDialogComponent } from './edit-cliente-dialog/edit-cliente-dialog.component';
@@ -33,7 +47,9 @@ export class ClientesComponent implements OnInit, OnDestroy {
     'dataCadastro',
     'pedidos',
   ];
-  dataSource: any;
+
+  clientes$: Observable<Cliente[]>;
+  // dataSource: any;
   destroySubject$ = new Subject<boolean>();
 
   constructor(
@@ -42,12 +58,17 @@ export class ClientesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.clientesService.appClientes$
-      .pipe(takeUntil(this.destroySubject$))
-      .subscribe(
-        (clientes) =>
-          (this.dataSource = new MatTableDataSource<Cliente>(clientes))
-      );
+    // this.clientesService.appClientes$
+    //   .pipe(takeUntil(this.destroySubject$))
+    //   .subscribe(
+    //     (clientes) =>
+    //       (this.dataSource = new MatTableDataSource<Cliente>(clientes))
+    //   );
+
+    this.clientes$ = this.clientesService.appClientes$.pipe(
+      takeUntil(this.destroySubject$)
+      // tap((clientes) => console.log(clientes))
+    );
   }
 
   onAddCliente() {
@@ -80,8 +101,29 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    let filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    console.log(filterValue);
+
+    this.clientes$ = this.clientes$.pipe(
+      // last(),
+      map((clientes) => {
+        //
+        if (filterValue.length > 0) {
+          return clientes.filter((cliente) =>
+            cliente.nome.toLowerCase().includes(filterValue)
+          );
+        } else {
+          return clientes;
+        }
+      }),
+      take(1),
+      tap((clientes) => {
+        // console.log(clientes);
+        filterValue = '';
+      })
+    );
   }
 
   ngOnDestroy() {
