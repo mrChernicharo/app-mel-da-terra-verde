@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         const compra: IMelCompra = {
           mel: result.mel,
           quantidade: result.quantidade * 1000,
-          valor: result.valor,
+          valor: result.valor * 100,
         };
 
         this.novaCompraEmitted.emit(compra);

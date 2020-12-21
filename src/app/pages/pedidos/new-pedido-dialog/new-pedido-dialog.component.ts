@@ -146,8 +146,9 @@ export class NewPedidoDialogComponent implements OnInit {
 
     const value = poteValue * +quantidade * (1 - descount);
     formGroup.get('valor').setValue(value / 100);
-    this.valorTotal$ = of(value);
+    this.valorTotal$ = of(this.getPedidoTotalValue());
   }
+
   setAllProdutosValues(event: InputEvent) {
     fromEvent(event.target, 'input')
       .pipe(

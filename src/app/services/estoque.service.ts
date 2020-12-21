@@ -57,19 +57,14 @@ export class EstoqueService {
     }
     // console.log('dados prontos!!!');
 
-    const reducedEstoque = compras.reduce((acc, next) => {
-      if (acc.filter((item) => item.mel === next.mel).length < 1) {
-        // acrescente um obj no acc caso ainda não exista lá um obj com a prop 'mel' da vez
-        acc.push({ mel: next.mel, quantidade: 0 });
-      }
+    const valorTotalCompras = compras.reduce(
+      (acc, next) => (acc += next.valor),
+      0
+    );
 
-      const index = acc.findIndex((item) => item.mel === next.mel);
-      // console.log(next);
+    this.subtractFromSaldo(valorTotalCompras);
 
-      acc[index].quantidade += +next.quantidade;
-      //
-      return acc;
-    }, []);
+    const reducedEstoque = this.reduceCompras(compras);
 
     console.log(reducedEstoque);
     this.estoqueBrutoSubject$.next(reducedEstoque);
@@ -77,6 +72,14 @@ export class EstoqueService {
 
   getEstoqueBruto() {
     return this.estoqueBrutoSubject$.getValue();
+  }
+
+  async registerNewCompra(compra) {
+    console.log(compra);
+
+    const query = this.db.collection('compras').add(compra);
+
+    await query.then((response) => console.log(response));
   }
 
   getCompras() {
@@ -94,11 +97,26 @@ export class EstoqueService {
       );
   }
 
-  async registerNewCompra(compra) {
-    console.log(compra);
+  reduceCompras(compras: IMelCompra[]) {
+    return compras.reduce((acc, next) => {
+      if (acc.filter((item) => item.mel === next.mel).length < 1) {
+        // acrescente um obj no acc caso ainda não exista lá um obj com a prop 'mel' da vez
+        acc.push({ mel: next.mel, quantidade: 0 });
+      }
 
-    const query = this.db.collection('compras').add(compra);
+      const index = acc.findIndex((item) => item.mel === next.mel);
+      // console.log(next);
 
-    await query.then((response) => console.log(response));
+      acc[index].quantidade += +next.quantidade;
+      //
+      return acc;
+    }, []);
+  }
+
+  subtractFromSaldo(value: number) {
+    console.log(value);
+    // console.log(currentSaldo);
+    const currentSaldo = this.saldoSubject$.getValue();
+    this.saldoSubject$.next(currentSaldo - value);
   }
 }
