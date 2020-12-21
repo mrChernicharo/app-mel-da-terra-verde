@@ -11,7 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { from, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { EstoqueService, IMelCompra } from 'src/app/services/estoque.service';
+import {
+  EstoqueService,
+  IMelBruto,
+  IMelCompra,
+} from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { produtosImgUrls } from 'src/assets/img.paths';
@@ -35,6 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   @Output()
   novaCompraEmitted = new EventEmitter<IMelCompra>();
+  currentEstoque$: Observable<IMelBruto[]>;
 
   constructor(
     private clientesService: ClientesService,
@@ -61,6 +66,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
 
     this.meles = this.produtosService.meles;
+
+    this.currentEstoque$ = this.estoque.estoqueBruto$;
   }
   ngAfterViewInit() {
     // this.totalClientes = this.clientesService.countClientes();

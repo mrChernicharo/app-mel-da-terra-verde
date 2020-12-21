@@ -59,11 +59,12 @@ export class EstoqueService {
 
     const reducedEstoque = compras.reduce((acc, next) => {
       if (acc.filter((item) => item.mel === next.mel).length < 1) {
-        //
+        // acrescente um obj no acc caso ainda não exista lá um obj com a prop 'mel' da vez
         acc.push({ mel: next.mel, quantidade: 0 });
       }
+
       const index = acc.findIndex((item) => item.mel === next.mel);
-      console.log(next);
+      // console.log(next);
 
       acc[index].quantidade += +next.quantidade;
       //
