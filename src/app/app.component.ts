@@ -43,11 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.melCompras$ = this.estoque
       .getCompras()
       .pipe(shareReplay(), startWith([]));
-    // .pipe(tap((compras) => console.log(compras)));
+
     this.pedidos$.subscribe();
     this.melCompras$.subscribe();
-
-    // this.estoque._setEstoqueBruto()
   }
 
   ngAfterViewInit() {

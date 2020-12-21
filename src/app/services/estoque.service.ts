@@ -51,14 +51,27 @@ export class EstoqueService {
   }
 
   _setEstoqueBruto(pedidos: Pedido[], compras: IMelCompra[]) {
-    // const initialMelEstoque: IMelBruto[] = this.meles.map((mel) => {
-    //   return { mel, quantidade: 0 };
-    // });
-    console.log(pedidos);
-    console.log(compras);
-    // initialMelEstoque.map(mel => {
+    if (!pedidos.length || !compras.length) {
+      // console.log('dados incompletos');
+      return;
+    }
+    // console.log('dados prontos!!!');
 
-    // })
+    const reducedEstoque = compras.reduce((acc, next) => {
+      if (acc.filter((item) => item.mel === next.mel).length < 1) {
+        //
+        acc.push({ mel: next.mel, quantidade: 0 });
+      }
+      const index = acc.findIndex((item) => item.mel === next.mel);
+      console.log(next);
+
+      acc[index].quantidade += +next.quantidade;
+      //
+      return acc;
+    }, []);
+
+    console.log(reducedEstoque);
+    this.estoqueBrutoSubject$.next(reducedEstoque);
   }
 
   getEstoqueBruto() {
