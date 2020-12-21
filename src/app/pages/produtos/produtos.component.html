@@ -4,9 +4,11 @@
   <div class="banner-container">
     <img [src]="bannerImg" alt="" />
   </div>
+
   <div class="section-title-container">
     <span class="section-title">Formatos</span>
   </div>
+
   <div class="potes-container">
     <ng-container *ngFor="let pote of potes; let i = index">
       <mat-card class="pote-card">
@@ -14,7 +16,7 @@
           {{ pote === "kit" ? "Kit degustação" : "Pote de " + pote + "g" }}
         </div>
         <div class="pote-img-container">
-          <img class="pote-img" [src]="prodImgs[pote]" />
+          <img [src]="prodImgs[pote]" class="pote-img" />
         </div>
         <div class="preco-container">
           {{ valores[i] / 100 | currency: "BRL":true }}
@@ -22,13 +24,15 @@
       </mat-card>
     </ng-container>
   </div>
+
   <div class="section-title-container">
     <span class="section-title">Meles</span>
   </div>
+
   <div class="meles-container">
     <ng-container *ngFor="let mel of meles">
       <mat-card class="mel-card">
-        <img [src]="prodImgs.favo" />
+        <img [src]="prodImgs.favo" class="favo-img" />
         <p>{{ mel }}</p>
       </mat-card>
 

@@ -30,4 +30,16 @@ mat-form-field {
     width: 100px;
     margin-right: 14px;
   }
+
+  &.valor-produto {
+    width: 90px;
+  }
+}
+span.valor-total-head {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+span.valor-total {
+  font-weight: 300;
 }

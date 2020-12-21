@@ -78,7 +78,7 @@ export class NewPedidoDialogComponent implements OnInit {
       nomeCliente: new FormControl('', Validators.required),
       dataPedido: new FormControl('', Validators.required),
       previsaoEntrega: new FormControl('', Validators.required),
-      desconto: new FormControl(),
+      desconto: new FormControl(0),
       produtos: this.formBuilder.array([]),
       valor: 0,
     }));
@@ -88,7 +88,7 @@ export class NewPedidoDialogComponent implements OnInit {
     return this.formBuilder.group({
       mel: new FormControl('', Validators.required),
       pote: new FormControl('', Validators.required),
-      quantidade: new FormControl('', Validators.required),
+      quantidade: new FormControl(1, Validators.required),
       valor: new FormControl(''),
     });
   }

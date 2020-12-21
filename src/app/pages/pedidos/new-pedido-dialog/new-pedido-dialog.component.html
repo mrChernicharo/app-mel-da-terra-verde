@@ -131,7 +131,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="valor" appearance="standard">
+        <mat-form-field class="valor-produto" appearance="standard">
           <mat-label>valor</mat-label>
           <input
             readonly
@@ -148,23 +148,30 @@
       </div>
     </div>
 
+    <!-- <hr style="border-top: 1px dashed;" /> -->
+
     <div class="valor-total-pedido" *ngIf="valorTotal$ | async as valor">
-      <h3>Valor total</h3>
-      <span>{{ valor / 100 | currency: "BRL":true }}</span>
+      <span class="valor-total-head">Valor total</span>
+      <span class="valor-total">{{ valor / 100 | currency: "BRL":true }}</span>
     </div>
   </form>
-  <br /><br />
+  <br />
   <button
     type="submit"
     mat-raised-button
     color="accent"
     (click)="savePedido()"
-    [disabled]="pedidoFormGroup.invalid"
+    [disabled]="pedidoFormGroup.invalid || getProdutosControls().length < 1"
   >
     Criar Pedido
   </button>
 
-  <button type="button" mat-raised-button (click)="onCancel()">
+  <button
+    type="button"
+    mat-raised-button
+    (click)="onCancel()"
+    style="margin-left: 8px;"
+  >
     Cancelar
   </button>
   <br />
