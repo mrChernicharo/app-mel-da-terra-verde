@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Pedido } from '../pages/pedidos/pedido.model';
 import { PedidosService } from './pedidos.service';
@@ -6,7 +7,13 @@ import { ProdutosService } from './produtos.service';
 
 export interface IMelBruto {
   mel: string;
-  quantidade: number;
+  quantidade: number; // kilo
+}
+
+export interface IMelCompra {
+  mel: string;
+  quantidade: number; // grama
+  valor: number;
 }
 
 @Injectable({
@@ -23,7 +30,8 @@ export class EstoqueService {
 
   constructor(
     private pedidosService: PedidosService,
-    private produtosService: ProdutosService
+    private produtosService: ProdutosService,
+    private db: AngularFirestore
   ) {}
 
   _setSaldo(pedidos: Pedido[]): void {
@@ -49,5 +57,13 @@ export class EstoqueService {
 
   getEstoqueBruto() {
     return this.estoqueBrutoSubject$.getValue();
+  }
+
+  async registerNewCompra(compra) {
+    console.log(compra);
+
+    const query = this.db.collection('compras').add(compra);
+
+    await query.then((response) => console.log(response));
   }
 }

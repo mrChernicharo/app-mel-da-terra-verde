@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EstoqueService } from 'src/app/services/estoque.service';
 
 @Component({
   selector: 'app-compra-dialog',
@@ -12,7 +13,8 @@ export class CompraDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public meles: string[],
-    private dialogRef: MatDialogRef<CompraDialogComponent>
+    private dialogRef: MatDialogRef<CompraDialogComponent>,
+    private estoque: EstoqueService
   ) {}
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class CompraDialogComponent implements OnInit {
   }
 
   saveCompra() {
-    console.log(this.compraForm.value);
+    // console.log(this.compraForm.value);
     this.dialogRef.close(this.compraForm.value);
   }
 

@@ -15,7 +15,7 @@ div.page-container {
     display: flex;
     justify-content: center;
     border: 1px solid #707070;
-    width: 100vw;
+    width: calc(100vw -3px);
 
     .mel-div {
       border: 1px solid orangered;

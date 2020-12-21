@@ -3,14 +3,15 @@ import {
   Component,
   OnInit,
   Output,
+  EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EventEmitter } from 'events';
+
 import { from, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { EstoqueService } from 'src/app/services/estoque.service';
+import { EstoqueService, IMelCompra } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { produtosImgUrls } from 'src/assets/img.paths';
@@ -31,8 +32,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   pedidosNaoPagos$: Observable<number>;
   meles;
   baldeImg = produtosImgUrls.honeyBucket;
+
   @Output()
-  novaCompra = new EventEmitter();
+  novaCompraEmitted = new EventEmitter<IMelCompra>();
 
   constructor(
     private clientesService: ClientesService,
@@ -74,7 +76,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.novaCompra.emit(result);
+        const compra: IMelCompra = {
+          mel: result.mel,
+          quantidade: result.quantidade * 1000,
+          valor: result.valor,
+        };
+
+        this.novaCompraEmitted.emit(compra);
+        this.estoque.registerNewCompra(compra);
       }
     });
   }
