@@ -55,7 +55,9 @@ export class PedidosComponent implements OnInit, OnDestroy {
   loadPedidos() {
     return this.pedidosService
       .fetchAllPedidos()
-      .pipe(tap((pedidos) => this.estoque._setSaldo(pedidos)))
+      .pipe
+      // tap((pedidos) => this.estoque._setSaldo(pedidos))
+      ()
       .subscribe(
         (data) => (this.dataSource = new MatTableDataSource<Pedido>(data))
       );

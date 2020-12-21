@@ -19,6 +19,7 @@ import {
   tap,
 } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 
@@ -41,6 +42,7 @@ export class NewPedidoDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
     private formBuilder: FormBuilder,
+    private estoque: EstoqueService,
     private zone: NgZone,
     private router: Router,
     private cd: ChangeDetectorRef,
@@ -176,6 +178,7 @@ export class NewPedidoDialogComponent implements OnInit {
     this.pedidoFormGroup.get('valor').setValue(this.getPedidoTotalValue());
 
     this.pedidosService.addNewPedido(this.pedidoFormGroup.value);
+    // this.estoque.getSaldo();
 
     this.dialogRef.close(this.pedidoFormGroup.value);
   }

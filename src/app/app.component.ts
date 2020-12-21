@@ -32,13 +32,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       // console.log(clientes);
     });
 
-    this.pedidos$ = this.pedidosService.fetchAllPedidos().pipe(
-      shareReplay(),
-      startWith([]),
-      tap((pedidos) => {
-        this.estoque._setSaldo(pedidos);
-      })
-    );
+    this.pedidos$ = this.pedidosService
+      .fetchAllPedidos()
+      .pipe(shareReplay(), startWith([]));
 
     this.melCompras$ = this.estoque
       .getCompras()
@@ -46,18 +42,18 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.pedidos$.subscribe();
     this.melCompras$.subscribe();
-  }
 
-  ngAfterViewInit() {
     combineLatest([this.pedidos$, this.melCompras$])
       .pipe(
         map(([pedidos, compras]) => {
           return { pedidos, compras };
         }),
         tap((data) => {
+          this.estoque._setSaldo(data.pedidos, data.compras);
           this.estoque._setEstoqueBruto(data.pedidos, data.compras);
         })
       )
       .subscribe();
   }
+  ngAfterViewInit() {}
 }

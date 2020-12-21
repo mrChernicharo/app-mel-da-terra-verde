@@ -3,13 +3,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { Pedido } from '../pages/pedidos/pedido.model';
+import { EstoqueService } from './estoque.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PedidosService {
   storedPedidos: Pedido[];
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private estoque: EstoqueService) {}
 
   fetchAllPedidos(): Observable<Pedido[]> {
     const query = this.db.collection<Pedido>('pedidos', (ref) =>
@@ -56,10 +57,17 @@ export class PedidosService {
     };
     console.log(newPedido);
 
-    this.db.collection('pedidos').add(newPedido);
+    this.db
+      .collection('pedidos')
+      .add(newPedido)
+      .then(() => this.estoque.getSaldo());
   }
 
   updatePedido(pedidoId: string, changes: Partial<Pedido>) {
-    return from(this.db.doc(`pedidos/${pedidoId}`).update(changes));
+    return from(this.db.doc(`pedidos/${pedidoId}`).update(changes)).pipe(
+      tap(() => {
+        this.estoque.getSaldo();
+      })
+    );
   }
 }

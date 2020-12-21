@@ -30,18 +30,22 @@ export class EstoqueService {
   public saldo$ = this.saldoSubject$.asObservable();
 
   constructor(
-    private pedidosService: PedidosService,
-    private produtosService: ProdutosService,
+    // private pedidosService: PedidosService,
+    // private produtosService: ProdutosService,
     private db: AngularFirestore
   ) {}
 
-  _setSaldo(pedidos: Pedido[]): void {
-    const saldo = pedidos.reduce((init, next) => {
+  _setSaldo(pedidos: Pedido[], compras: IMelCompra[]): void {
+    const saldoPedidos = pedidos.reduce((init, next) => {
       if (next.pago) {
         init += next.valor ? +next.valor : 0;
       }
       return init;
     }, 0);
+
+    const saldoCompras = compras.reduce((acc, next) => (acc += next.valor), 0);
+
+    const saldo = saldoPedidos - saldoCompras;
 
     this.saldoSubject$.next(saldo);
   }
@@ -52,10 +56,8 @@ export class EstoqueService {
 
   _setEstoqueBruto(pedidos: Pedido[], compras: IMelCompra[]) {
     if (!pedidos.length || !compras.length) {
-      // console.log('dados incompletos');
       return;
     }
-    // console.log('dados prontos!!!');
 
     const valorTotalCompras = compras.reduce(
       (acc, next) => (acc += next.valor),
