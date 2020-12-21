@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { combineLatest, from, Observable, of } from 'rxjs';
+import { delay, map, shareReplay, startWith, tap } from 'rxjs/operators';
 import { Cliente } from './pages/clientes/cliente.model';
+import { Pedido } from './pages/pedidos/pedido.model';
 import { AuthService } from './services/auth.service';
 import { ClientesService } from './services/clientes.service';
-import { EstoqueService } from './services/estoque.service';
+import { EstoqueService, IMelCompra } from './services/estoque.service';
 import { PedidosService } from './services/pedidos.service';
 // var admin = require('firebase-admin');
 
@@ -14,25 +16,50 @@ import { PedidosService } from './services/pedidos.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   public title = 'Mel da Terra Verde';
+  pedidos$: Observable<Pedido[]>;
+  melCompras$: Observable<IMelCompra[]>;
 
   constructor(
     private pedidosService: PedidosService,
     private clientesService: ClientesService,
-    private estoqueService: EstoqueService // private afAuth: AngularFireAuth,
+    private estoque: EstoqueService // private afAuth: AngularFireAuth,
   ) {}
 
   ngOnInit() {
     this.clientesService.fetchAllClientes().subscribe((clientes) => {
-      console.log(clientes);
+      // console.log(clientes);
     });
 
-    this.pedidosService
-      .fetchAllPedidos()
-      .pipe(tap((pedidos) => this.estoqueService._setSaldo(pedidos)))
-      .subscribe((pedidos) => console.log(this.estoqueService.getSaldo()));
+    this.pedidos$ = this.pedidosService.fetchAllPedidos().pipe(
+      shareReplay(),
+      startWith([]),
+      tap((pedidos) => {
+        this.estoque._setSaldo(pedidos);
+      })
+    );
 
-    // this.estoqueService._setEstoqueBruto()
+    this.melCompras$ = this.estoque
+      .getCompras()
+      .pipe(shareReplay(), startWith([]));
+    // .pipe(tap((compras) => console.log(compras)));
+    this.pedidos$.subscribe();
+    this.melCompras$.subscribe();
+
+    // this.estoque._setEstoqueBruto()
+  }
+
+  ngAfterViewInit() {
+    combineLatest([this.pedidos$, this.melCompras$])
+      .pipe(
+        map(([pedidos, compras]) => {
+          return { pedidos, compras };
+        }),
+        tap((data) => {
+          this.estoque._setEstoqueBruto(data.pedidos, data.compras);
+        })
+      )
+      .subscribe();
   }
 }

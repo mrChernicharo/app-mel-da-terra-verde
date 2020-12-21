@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { Pedido } from '../pages/pedidos/pedido.model';
 import { PedidosService } from './pedidos.service';
 import { ProdutosService } from './produtos.service';
@@ -49,14 +50,34 @@ export class EstoqueService {
     return this.saldoSubject$.getValue();
   }
 
-  _setEstoqueBruto(pedidos, compras) {
-    const initialEstoque: IMelBruto[] = this.meles.map((mel) => {
-      return { mel, quantidade: 0 };
-    });
+  _setEstoqueBruto(pedidos: Pedido[], compras: IMelCompra[]) {
+    // const initialMelEstoque: IMelBruto[] = this.meles.map((mel) => {
+    //   return { mel, quantidade: 0 };
+    // });
+    console.log(pedidos);
+    console.log(compras);
+    // initialMelEstoque.map(mel => {
+
+    // })
   }
 
   getEstoqueBruto() {
     return this.estoqueBrutoSubject$.getValue();
+  }
+
+  getCompras() {
+    return this.db
+      .collection('compras')
+      .snapshotChanges()
+      .pipe(
+        shareReplay(),
+        map((snaps) =>
+          snaps.map(
+            (snap) => (snap.payload.doc.data() as unknown) as IMelCompra
+          )
+        ),
+        tap((compras) => console.log(compras))
+      );
   }
 
   async registerNewCompra(compra) {
