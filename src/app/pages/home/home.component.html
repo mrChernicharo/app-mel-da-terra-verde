@@ -4,52 +4,60 @@
   <p>Estoque</p> -->
 
   <div class="totals-container">
-    <ng-container *ngIf="saldo$ | async as saldoAtual">
+    <ng-container *ngIf="saldo$ | async as saldoAtual; else defaultSaldo">
       <mat-card>
         <h3>Saldo</h3>
         <p>{{ saldoAtual / 100 | currency: "BRL":true }}</p>
       </mat-card>
     </ng-container>
+    <ng-template #defaultSaldo>
+      <mat-card>
+        <h3>Saldo</h3>
+        <p>{{ 0 | currency: "BRL":true }}</p>
+      </mat-card>
+    </ng-template>
 
-    <ng-container *ngIf="totalClientes$ | async as clientesTotal">
+    <ng-container
+      *ngIf="totalClientes$ | async as clientesTotal; else defaultClientes"
+    >
       <mat-card>
         <h3>Clientes</h3>
         <p>{{ clientesTotal }}</p>
       </mat-card>
     </ng-container>
+    <ng-template #defaultClientes>
+      <mat-card>
+        <h3>Clientes</h3>
+        <p>{{ 0 }}</p>
+      </mat-card>
+    </ng-template>
 
     <ng-container *ngIf="totalPedidos$ | async as pedidosTotal">
       <mat-card>
         <h3>Pedidos</h3>
         <p>{{ pedidosTotal }}</p>
-      </mat-card>
-    </ng-container>
 
-    <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
-      <mat-card>
-        <h3>Pagos</h3>
-        <p>{{ pedidosPagosTotal }}</p>
-      </mat-card>
-    </ng-container>
+        <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
+          <p><strong>Pagos</strong> {{ pedidosPagosTotal }}</p>
+        </ng-container>
 
-    <ng-container *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal">
-      <mat-card>
-        <h3>A pagar</h3>
-        <p>{{ pedidosNaoPagosTotal }}</p>
+        <ng-container *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal">
+          <p><strong>A pagar</strong> {{ pedidosNaoPagosTotal }}</p>
+        </ng-container>
       </mat-card>
     </ng-container>
   </div>
 
-  <div class="estoque-bruto">
-    <div
-      class="mel-div"
-      *ngFor="let item of currentEstoque$ | async as estoqueItem"
-    >
-      <h4>{{ item.mel | titlecase }}</h4>
-      <img [src]="baldeImg" alt="" srcset="" />
-      <p>{{ item.quantidade }} g</p>
-    </div>
-  </div>
+  <ng-container *ngIf="currentEstoque$ | async as estoqueItem">
+    <div class="estoque-bruto">
+      <div class="mel-div" *ngFor="let item of estoqueItem">
+        <h4>{{ item.mel | titlecase }}</h4>
+        <img [src]="baldeImg" alt="" srcset="" />
+        <p>♢ {{ item.quantidade }} g</p>
+        <p>◦ {{ item.valor / 100 | currency: "BRL":true }}</p>
+      </div>
+    </div></ng-container
+  >
   <div class="compra-btn-container">
     <button mat-button color="primary" (click)="onOpenCompraDialog()">
       <mat-icon>add</mat-icon>

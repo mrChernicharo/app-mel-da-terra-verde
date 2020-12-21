@@ -6,10 +6,10 @@ import { Pedido } from '../pages/pedidos/pedido.model';
 import { PedidosService } from './pedidos.service';
 import { ProdutosService } from './produtos.service';
 
-export interface IMelBruto {
-  mel: string;
-  quantidade: number; // kilo
-}
+// export interface IMelBruto {
+//   mel: string;
+//   quantidade: number; // kilo
+// }
 
 export interface IMelCompra {
   mel: string;
@@ -23,7 +23,7 @@ export interface IMelCompra {
 export class EstoqueService {
   public meles = ['laranjeira', 'eucalípto', 'uruçá', 'jataí'];
 
-  private estoqueBrutoSubject$ = new BehaviorSubject<IMelBruto[]>([]);
+  private estoqueBrutoSubject$ = new BehaviorSubject<IMelCompra[]>([]);
   public estoqueBruto$ = this.estoqueBrutoSubject$.asObservable();
 
   private saldoSubject$ = new BehaviorSubject<number>(0);
@@ -64,12 +64,19 @@ export class EstoqueService {
       0
     );
 
-    this.subtractFromSaldo(valorTotalCompras);
+    // this.subtractFromSaldo(valorTotalCompras);
 
     const reducedEstoque = this.reduceCompras(compras);
-
     console.log(reducedEstoque);
+
+    const valorTotalEstoque = reducedEstoque.reduce(
+      (acc, next) => (acc += next.valor),
+      0
+    );
+
+    // console.log(reducedEstoque);
     this.estoqueBrutoSubject$.next(reducedEstoque);
+    this.saldoSubject$.next(valorTotalEstoque - valorTotalCompras);
   }
 
   getEstoqueBruto() {
@@ -99,26 +106,27 @@ export class EstoqueService {
       );
   }
 
-  reduceCompras(compras: IMelCompra[]) {
+  reduceCompras(compras: IMelCompra[]): IMelCompra[] {
     return compras.reduce((acc, next) => {
       if (acc.filter((item) => item.mel === next.mel).length < 1) {
         // acrescente um obj no acc caso ainda não exista lá um obj com a prop 'mel' da vez
-        acc.push({ mel: next.mel, quantidade: 0 });
+        acc.push({ mel: next.mel, quantidade: 0, valor: 0 });
       }
 
       const index = acc.findIndex((item) => item.mel === next.mel);
       // console.log(next);
 
       acc[index].quantidade += +next.quantidade;
+      acc[index].valor += +next.valor;
       //
       return acc;
     }, []);
   }
 
-  subtractFromSaldo(value: number) {
-    console.log(value);
-    // console.log(currentSaldo);
-    const currentSaldo = this.saldoSubject$.getValue();
-    this.saldoSubject$.next(currentSaldo - value);
-  }
+  // subtractFromSaldo(value: number) {
+  //   console.log(value);
+  //   // console.log(currentSaldo);
+  //   const currentSaldo = this.saldoSubject$.getValue();
+  //   this.saldoSubject$.next(currentSaldo - value);
+  // }
 }

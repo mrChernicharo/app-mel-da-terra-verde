@@ -49,8 +49,8 @@ export class AppComponent implements OnInit, AfterViewInit {
           return { pedidos, compras };
         }),
         tap((data) => {
-          this.estoque._setSaldo(data.pedidos, data.compras);
           this.estoque._setEstoqueBruto(data.pedidos, data.compras);
+          this.estoque._setSaldo(data.pedidos, data.compras);
         })
       )
       .subscribe();
