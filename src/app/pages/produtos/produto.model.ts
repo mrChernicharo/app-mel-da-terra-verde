@@ -2,7 +2,7 @@ export class Produto {
   mel: string;
   pote: 'kit' | '150' | '350' | '480' | '780';
   valor: 4000 | 1800 | 2800 | 3500 | 4800;
-
+  quantidade: number;
   // get valor() {
   // switch (this.pote) {
   //   case 'kit':

@@ -53,6 +53,7 @@
         max="100"
         matInput
         placeholder="0.0"
+        [value]="0"
       />
     </mat-form-field>
 
@@ -72,7 +73,11 @@
       class="produto-form-group"
       *ngFor="let produto of getProdutosControls(); let i = index"
     >
-      <div class="produtos-section" [formGroup]="produto">
+      <div
+        class="produtos-section"
+        (change)="setValorProduto(i)"
+        [formGroup]="produto"
+      >
         <button
           type="button"
           color="warn"
@@ -93,17 +98,25 @@
 
         <mat-form-field class="pote" appearance="standard">
           <mat-label>Pote</mat-label>
-          <mat-select formControlName="pote" matInput placeholder="pote">
+          <!-- (valueChange)="setValorProduto(i)" -->
+          <mat-select
+            formControlName="pote"
+            matInput
+            placeholder="pote"
+            (previewChange)="setValorProduto(i)"
+            (closed)="setValorProduto(i)"
+          >
             <mat-option
-              *ngFor="let pote of potes; let i = index"
+              *ngFor="let pote of potes; let j = index"
               [value]="pote"
-              >{{ potesNames[i] }}</mat-option
+              >{{ potesNames[j] }}</mat-option
             >
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="quantidade" appearance="standard">
           <mat-label>Quantidade</mat-label>
+          <!-- (change)="setValorProduto(i)" -->
           <input
             formControlName="quantidade"
             type="number"
@@ -113,10 +126,25 @@
           />
         </mat-form-field>
 
+        <mat-form-field class="valor" appearance="standard">
+          <mat-label>valor</mat-label>
+          <input
+            readonly
+            formControlName="valor"
+            type="number"
+            matInput
+            placeholder="valor"
+          />
+        </mat-form-field>
+
         <button type="button" mat-mini-fab (click)="onAddProduto()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
+    </div>
+
+    <div class="valor-total-pedido" *ngIf="valorTotal$ | async as valor">
+      <span>{{ valor }}</span>
     </div>
   </form>
   <br /><br />

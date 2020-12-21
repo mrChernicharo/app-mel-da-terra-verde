@@ -66,4 +66,8 @@ export class ClientesService {
         this.db.doc(`clientes/${data.id}`).update(changes);
       });
   }
+
+  // countClientes() {
+  //   return this.clientesSubject$.getValue().length;
+  // }
 }

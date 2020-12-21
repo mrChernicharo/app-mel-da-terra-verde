@@ -50,6 +50,14 @@
 
   <br />
 
+  <div class="produtos-pedido">
+    <ng-container *ngFor="let produto of data.produtos">
+      <p>{{ produto.pote }} {{ produto.mel }} {{ produto.quantidade }}</p>
+    </ng-container>
+    <p>desconto: {{ data.desconto ? data.desconto : 0 }}%</p>
+    <p>total: {{ data.valor / 100 | currency: "BRL":true }}</p>
+  </div>
+
   <div class="btn-container">
     <button
       type="submit"

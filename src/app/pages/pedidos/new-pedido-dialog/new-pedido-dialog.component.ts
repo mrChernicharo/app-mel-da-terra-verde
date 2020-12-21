@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -28,6 +28,7 @@ export class NewPedidoDialogComponent implements OnInit {
   meles: string[];
   potes: string[];
   potesNames: string[];
+  valorTotal$: Observable<number>;
 
   constructor(
     private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
@@ -57,6 +58,8 @@ export class NewPedidoDialogComponent implements OnInit {
       })
     );
 
+    this.valorTotal$ = of(this.getPedidoTotalValue());
+
     // console.log(this.clientes);
   }
 
@@ -76,6 +79,7 @@ export class NewPedidoDialogComponent implements OnInit {
       mel: new FormControl('', Validators.required),
       pote: new FormControl('', Validators.required),
       quantidade: new FormControl('', Validators.required),
+      valor: new FormControl(''),
     });
   }
 
@@ -89,6 +93,47 @@ export class NewPedidoDialogComponent implements OnInit {
 
   getProdutosControls() {
     return this.produtos.controls;
+  }
+
+  setValorProduto(index: number) {
+    console.log(index);
+    const descount = this.pedidoFormGroup.get('desconto').value / 100;
+
+    const formGroup = this.getProdutosControls()[index];
+
+    const pote = formGroup.get('pote').value;
+    const quantidade = formGroup.get('quantidade').value || 1;
+    let poteValue;
+
+    switch (pote) {
+      case 'kit':
+        poteValue = 4000;
+        break;
+      case '150':
+        poteValue = 1800;
+        break;
+
+      case '350':
+        poteValue = 2800;
+        break;
+
+      case '480':
+        poteValue = 3500;
+        break;
+
+      case '780':
+        poteValue = 4800;
+        break;
+
+      default:
+        poteValue = 0;
+        break;
+    }
+
+    const value = poteValue * quantidade * (1 - descount);
+    console.log(value);
+    // formGroup.get('valor').setValue(value / 100);
+    formGroup.get('valor').patchValue(value / 100);
   }
 
   savePedido() {
@@ -106,20 +151,20 @@ export class NewPedidoDialogComponent implements OnInit {
   getPedidoTotalValue() {
     const descount = this.pedidoFormGroup.get('desconto').value / 100;
     console.log(descount);
-    return this.produtos.controls.reduce((acc, next) => {
+    return this.getProdutosControls().reduce((acc, next) => {
       switch (next.get('pote').value) {
         case 'kit':
-          return acc + 4000 * next.get('quantidade').value * (1 - descount);
+          return (acc += 4000 * next.get('quantidade').value * (1 - descount));
         case '150':
-          return acc + 1800 * next.get('quantidade').value * (1 - descount);
+          return (acc += 1800 * next.get('quantidade').value * (1 - descount));
         case '350':
-          return acc + 2800 * next.get('quantidade').value * (1 - descount);
+          return (acc += 2800 * next.get('quantidade').value * (1 - descount));
         case '480':
-          return acc + 3500 * next.get('quantidade').value * (1 - descount);
+          return (acc += 3500 * next.get('quantidade').value * (1 - descount));
         case '780':
-          return acc + 4800 * next.get('quantidade').value * (1 - descount);
+          return (acc += 4800 * next.get('quantidade').value * (1 - descount));
         default:
-          return acc + 0;
+          return (acc += 0);
       }
     }, 0);
   }

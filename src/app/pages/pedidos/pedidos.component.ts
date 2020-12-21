@@ -12,6 +12,8 @@ import {
   MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { tap } from 'rxjs/operators';
+import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
 import { EditPedidoDialogComponent } from './edit-pedido-dialog/edit-pedido-dialog.component';
@@ -42,7 +44,8 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private pedidosService: PedidosService
+    private pedidosService: PedidosService,
+    private estoque: EstoqueService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +55,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
   loadPedidos() {
     return this.pedidosService
       .fetchAllPedidos()
+      .pipe(tap((pedidos) => this.estoque._setSaldo(pedidos)))
       .subscribe(
         (data) => (this.dataSource = new MatTableDataSource<Pedido>(data))
       );

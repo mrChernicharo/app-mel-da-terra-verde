@@ -26,12 +26,12 @@ export class StoreService {
     // this._appStore.produtos = [];
   }
 
-  public storeClientes(clientes: Cliente[]) {
-    console.log('ATENÇÃO: storing Clientes!');
-    console.log(clientes);
-    // this._appStore.clientes.push(...clientes);
-    this.clientesStore.push(...clientes);
-    console.log(this.clientesStore);
-    // console.log(this._appStore);
-  }
+  // public storeClientes(clientes: Cliente[]) {
+  //   console.log('ATENÇÃO: storing Clientes!');
+  //   console.log(clientes);
+  //   // this._appStore.clientes.push(...clientes);
+  //   this.clientesStore.push(...clientes);
+  //   console.log(this.clientesStore);
+  //   // console.log(this._appStore);
+  // }
 }

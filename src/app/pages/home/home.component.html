@@ -2,4 +2,41 @@
   <p>home works!</p>
   <p>Saldo</p>
   <p>Estoque</p>
+
+  <div class="totals-container">
+    <ng-container *ngIf="saldo$ | async as saldoAtual">
+      <mat-card>
+        <h3>Saldo</h3>
+        <p>{{ saldoAtual / 100 | currency: "BRL":true }}</p>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="totalClientes$ | async as clientesTotal">
+      <mat-card>
+        <h3>Clientes</h3>
+        <p>{{ clientesTotal }}</p>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="totalPedidos$ | async as pedidosTotal">
+      <mat-card>
+        <h3>Pedidos</h3>
+        <p>{{ pedidosTotal }}</p>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
+      <mat-card>
+        <h3>Pagos</h3>
+        <p>{{ pedidosPagosTotal }}</p>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal">
+      <mat-card>
+        <h3>A pagar</h3>
+        <p>{{ pedidosNaoPagosTotal }}</p>
+      </mat-card>
+    </ng-container>
+  </div>
 </div>

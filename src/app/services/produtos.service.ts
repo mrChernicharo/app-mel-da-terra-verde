@@ -28,7 +28,7 @@ export class ProdutosService {
     },
     {
       nome: 'pote de 480g',
-      pote: '450',
+      pote: '480',
       valor: 3500,
       imgPath: produtosImgUrls['480'],
     },

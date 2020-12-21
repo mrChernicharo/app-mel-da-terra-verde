@@ -1,5 +1,6 @@
 div.page-container {
-  height: calc(100% - 16px);
+  border: 1px solid blue;
+  height: calc(100vh - 16px);
   display: flex;
   box-sizing: content-box;
   align-items: center;
