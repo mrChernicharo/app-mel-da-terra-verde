@@ -14,6 +14,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 import { EstoqueService, IMelCompra } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
+import { IServerTimestamp } from 'src/app/shared/server-timestamp.pipe';
 import { produtosImgUrls } from 'src/assets/img.paths';
 import { CompraDialogComponent } from './compra-dialog/compra-dialog.component';
 import { HistoricoComprasDialogComponent } from './historico-compras-dialog/historico-compras-dialog.component';
@@ -84,6 +85,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           mel: result.mel,
           quantidade: result.quantidade * 1000,
           valor: result.valor * 100,
+          dataCompra: new Date(),
         };
 
         this.novaCompraEmitted.emit(compra);
@@ -97,7 +99,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
       panelClass: 'historico-compras-dialog',
       hasBackdrop: true,
       autoFocus: true,
-      data: this.estoque.getCompras().pipe(map((compra) => compra)),
+      data: this.estoque
+        .getCompras()
+        .pipe(
+          map((compras) =>
+            compras.sort(
+              (a, b) =>
+                new Date((a.dataCompra as IServerTimestamp).seconds).getTime() -
+                new Date((b.dataCompra as IServerTimestamp).seconds).getTime()
+            )
+          )
+        ),
     });
   }
 }

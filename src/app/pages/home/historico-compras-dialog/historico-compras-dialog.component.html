@@ -1,11 +1,19 @@
 <table>
   <thead>
+    <th>Data</th>
     <th>Mel</th>
     <th>Quantidade</th>
     <th>Valor</th>
   </thead>
   <tbody *ngIf="data | async as allPedidos">
     <tr *ngFor="let pedido of allPedidos">
+      <td>
+        {{
+          pedido.dataCompra
+            ? (pedido.dataCompra | serverTimestamp | customDate: "dd/mm/yyyy")
+            : ""
+        }}
+      </td>
       <td>{{ pedido.mel }}</td>
       <td>{{ pedido.quantidade / 1000 }} Kg</td>
       <td>{{ pedido.valor / 100 | currency: "BRL":true }}</td>

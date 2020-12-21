@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { Pedido } from '../pages/pedidos/pedido.model';
+import { IServerTimestamp } from '../shared/server-timestamp.pipe';
 import { PedidosService } from './pedidos.service';
 import { ProdutosService } from './produtos.service';
 
@@ -15,6 +16,7 @@ export interface IMelCompra {
   mel: string;
   quantidade: number; // grama
   valor: number;
+  dataCompra?: Date | IServerTimestamp;
 }
 
 @Injectable({

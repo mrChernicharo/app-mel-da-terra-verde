@@ -41,13 +41,19 @@
 
         <div class="detail-container">
           <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
-            <p><strong>Pagos</strong> {{ pedidosPagosTotal }}</p>
+            <p style="color: #04ad6d;">
+              <strong>Pagos</strong>
+              {{ pedidosPagosTotal }}
+            </p>
           </ng-container>
 
           <ng-container
             *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal"
           >
-            <p><strong>A pagar</strong> {{ pedidosNaoPagosTotal }}</p>
+            <p style="color: #daac48;">
+              <strong>A pagar</strong>
+              {{ pedidosNaoPagosTotal }}
+            </p>
           </ng-container>
         </div>
       </mat-card>
@@ -57,10 +63,12 @@
   <ng-container *ngIf="currentEstoque$ | async as estoqueItem">
     <div class="estoque-bruto">
       <div class="mel-div" *ngFor="let item of estoqueItem">
-        <h4>{{ item.mel | titlecase }}</h4>
-        <img [src]="baldeImg" alt="" srcset="" />
-        <p>♢ {{ item.quantidade }} g</p>
-        <p>◦ {{ item.valor / 100 | currency: "BRL":true }}</p>
+        <mat-card>
+          <h4>{{ item.mel | titlecase }}</h4>
+          <img [src]="baldeImg" alt="" srcset="" />
+          <p>♢ {{ item.quantidade }} g</p>
+          <p>◦ {{ item.valor / 100 | currency: "BRL":true }}</p>
+        </mat-card>
       </div>
     </div></ng-container
   >
