@@ -46,7 +46,10 @@
 
     <mat-form-field class="desconto" appearance="standard">
       <mat-label>Desconto %</mat-label>
+      <!-- (selectedValueChange)="setAllProdutosValues()" -->
+      <!-- (change)="setAllProdutosValues($event)" -->
       <input
+        (input)="setAllProdutosValues($event)"
         formControlName="desconto"
         type="number"
         min="0"
@@ -103,8 +106,8 @@
             formControlName="pote"
             matInput
             placeholder="pote"
-            (previewChange)="setValorProduto(i)"
             (closed)="setValorProduto(i)"
+            [value]="'kit'"
           >
             <mat-option
               *ngFor="let pote of potes; let j = index"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -8,8 +8,16 @@ import {
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { fromEvent, Observable, of, throwError } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  delay,
+  distinctUntilChanged,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
@@ -33,7 +41,9 @@ export class NewPedidoDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
     private formBuilder: FormBuilder,
+    private zone: NgZone,
     private router: Router,
+    private cd: ChangeDetectorRef,
     private pedidosService: PedidosService,
     private clientesService: ClientesService,
     private produtosService: ProdutosService
@@ -96,14 +106,14 @@ export class NewPedidoDialogComponent implements OnInit {
   }
 
   setValorProduto(index: number) {
-    console.log(index);
+    // console.log(index);
     const descount = this.pedidoFormGroup.get('desconto').value / 100;
 
     const formGroup = this.getProdutosControls()[index];
 
-    const pote = formGroup.get('pote').value;
-    const quantidade = formGroup.get('quantidade').value || 1;
-    let poteValue;
+    let pote: string = formGroup.get('pote').value || '_';
+    let quantidade = formGroup.get('quantidade').value || 1;
+    let poteValue: number;
 
     switch (pote) {
       case 'kit':
@@ -125,15 +135,44 @@ export class NewPedidoDialogComponent implements OnInit {
         poteValue = 4800;
         break;
 
+      case '_':
+        poteValue = 0;
+        break;
+
       default:
         poteValue = 0;
         break;
     }
 
-    const value = poteValue * quantidade * (1 - descount);
+    const value = poteValue * +quantidade * (1 - descount);
     console.log(value);
-    // formGroup.get('valor').setValue(value / 100);
-    formGroup.get('valor').patchValue(value / 100);
+    formGroup.get('valor').setValue(value / 100);
+    // formGroup.get('valor').patchValue(value / 100);
+  }
+  setAllProdutosValues(event: InputEvent) {
+    fromEvent(event.target, 'input')
+      .pipe(
+        // debounceTime(400),
+        delay(100),
+        // take(1),
+        // distinctUntilChanged(),
+        tap((event) => {
+          const run = () => {
+            console.log(
+              'produtosLength = ' + this.getProdutosControls().length
+            );
+            for (let i = 0; i < this.getProdutosControls().length; i++) {
+              this.setValorProduto(i);
+            }
+            // this.zone.runGuarded(() => run());
+            // run.call(this);
+            // this.zone.runOutsideAngular(run);
+          };
+          run();
+        }),
+        catchError((err) => throwError(err))
+      )
+      .toPromise();
   }
 
   savePedido() {
