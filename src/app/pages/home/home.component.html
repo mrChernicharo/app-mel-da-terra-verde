@@ -5,13 +5,13 @@
 
   <div class="totals-container">
     <ng-container *ngIf="saldo$ | async as saldoAtual; else defaultSaldo">
-      <mat-card>
+      <mat-card class="saldo-card">
         <h3>Saldo</h3>
         <p>{{ saldoAtual / 100 | currency: "BRL":true }}</p>
       </mat-card>
     </ng-container>
     <ng-template #defaultSaldo>
-      <mat-card>
+      <mat-card class="saldo-card">
         <h3>Saldo</h3>
         <p>{{ 0 | currency: "BRL":true }}</p>
       </mat-card>
@@ -33,17 +33,23 @@
     </ng-template>
 
     <ng-container *ngIf="totalPedidos$ | async as pedidosTotal">
-      <mat-card>
-        <h3>Pedidos</h3>
-        <p>{{ pedidosTotal }}</p>
+      <mat-card class="pedidos-total-card">
+        <div class="master-container">
+          <h3>Pedidos</h3>
+          <p>{{ pedidosTotal }}</p>
+        </div>
 
-        <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
-          <p><strong>Pagos</strong> {{ pedidosPagosTotal }}</p>
-        </ng-container>
+        <div class="detail-container">
+          <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
+            <p><strong>Pagos</strong> {{ pedidosPagosTotal }}</p>
+          </ng-container>
 
-        <ng-container *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal">
-          <p><strong>A pagar</strong> {{ pedidosNaoPagosTotal }}</p>
-        </ng-container>
+          <ng-container
+            *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal"
+          >
+            <p><strong>A pagar</strong> {{ pedidosNaoPagosTotal }}</p>
+          </ng-container>
+        </div>
       </mat-card>
     </ng-container>
   </div>
@@ -62,6 +68,11 @@
     <button mat-button color="primary" (click)="onOpenCompraDialog()">
       <mat-icon>add</mat-icon>
       nova compra
+    </button>
+
+    <button mat-button color="primary" (click)="onOpenHistoricoCompraDialog()">
+      <mat-icon>history</mat-icon>
+      histórico de compras
     </button>
   </div>
 </div>

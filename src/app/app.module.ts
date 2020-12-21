@@ -46,6 +46,7 @@ import { NewPedidoDialogComponent } from './pages/pedidos/new-pedido-dialog/new-
 import { EditPedidoDialogComponent } from './pages/pedidos/edit-pedido-dialog/edit-pedido-dialog.component';
 import { ProdutosComponent } from './pages/produtos/produtos.component';
 import { CompraDialogComponent } from './pages/home/compra-dialog/compra-dialog.component';
+import { HistoricoComprasDialogComponent } from './pages/home/historico-compras-dialog/historico-compras-dialog.component';
 
 registerLocaleData(localePt);
 
@@ -85,6 +86,7 @@ const matModules = [
     CustomDatePipe,
     EditPedidoDialogComponent,
     CompraDialogComponent,
+    HistoricoComprasDialogComponent,
   ],
   imports: [
     BrowserModule,

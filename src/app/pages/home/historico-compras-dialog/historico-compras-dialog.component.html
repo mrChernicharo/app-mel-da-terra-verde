@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <th>Mel</th>
+    <th>Quantidade</th>
+    <th>Valor</th>
+  </thead>
+  <tbody *ngIf="data | async as allPedidos">
+    <tr *ngFor="let pedido of allPedidos">
+      <td>{{ pedido.mel }}</td>
+      <td>{{ pedido.quantidade / 1000 }} Kg</td>
+      <td>{{ pedido.valor / 100 | currency: "BRL":true }}</td>
+    </tr>
+  </tbody>
+</table>

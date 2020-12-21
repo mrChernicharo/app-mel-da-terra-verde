@@ -10,6 +10,34 @@ div.page-container {
   .totals-container {
     display: flex;
     border: 1px solid #707070;
+
+    mat-card {
+      margin: 3px;
+    }
+    .saldo-card {
+      background-color: #ffd740;
+    }
+
+    .pedidos-total-card {
+      // border: 1px solid orangered;
+      display: flex;
+      padding: 0 16px;
+
+      .master-container {
+        h3 {
+          margin-top: 17px;
+        }
+        // border: 1px solid orangered;
+      }
+      .detail-container {
+        // border: 1px solid orangered;
+        margin-left: 16px;
+
+        p:first-child {
+          margin-top: 19px;
+        }
+      }
+    }
   }
   .estoque-bruto {
     display: flex;
@@ -28,7 +56,6 @@ div.page-container {
       }
 
       img {
-        border: 1px solid orange;
         width: 100px;
       }
 

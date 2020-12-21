@@ -26,11 +26,6 @@ export class PedidosService {
 
           return pedido;
         });
-      }),
-      take(1),
-      tap((pedidos) => {
-        this.storedPedidos = pedidos;
-        console.log(this.storedPedidos);
       })
     );
   }
@@ -66,7 +61,7 @@ export class PedidosService {
   updatePedido(pedidoId: string, changes: Partial<Pedido>) {
     return from(this.db.doc(`pedidos/${pedidoId}`).update(changes)).pipe(
       tap(() => {
-        this.estoque.getSaldo();
+        this.fetchAllPedidos().subscribe(() => console.log('pega!'));
       })
     );
   }

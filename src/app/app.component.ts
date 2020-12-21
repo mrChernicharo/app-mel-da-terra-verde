@@ -40,11 +40,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       .getCompras()
       .pipe(shareReplay(), startWith([]));
 
-    this.pedidos$.subscribe();
-    this.melCompras$.subscribe();
+    this.pedidos$.subscribe(() => console.log('pedidos changed'));
+    this.melCompras$.subscribe(() => console.log('compras changed'));
 
     combineLatest([this.pedidos$, this.melCompras$])
       .pipe(
+        tap(),
         map(([pedidos, compras]) => {
           return { pedidos, compras };
         }),
@@ -53,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.estoque._setSaldo(data.pedidos, data.compras);
         })
       )
-      .subscribe();
+      .subscribe(() => console.log('appComponent trabalhando'));
   }
   ngAfterViewInit() {}
 }

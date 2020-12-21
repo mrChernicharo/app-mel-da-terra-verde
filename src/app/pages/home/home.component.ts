@@ -16,6 +16,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { produtosImgUrls } from 'src/assets/img.paths';
 import { CompraDialogComponent } from './compra-dialog/compra-dialog.component';
+import { HistoricoComprasDialogComponent } from './historico-compras-dialog/historico-compras-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -88,6 +89,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.novaCompraEmitted.emit(compra);
         this.estoque.registerNewCompra(compra);
       }
+    });
+  }
+
+  onOpenHistoricoCompraDialog() {
+    const dialogRef = this.dialog.open(HistoricoComprasDialogComponent, {
+      panelClass: 'historico-compras-dialog',
+      hasBackdrop: true,
+      autoFocus: true,
+      data: this.estoque.getCompras().pipe(map((compra) => compra)),
     });
   }
 }
