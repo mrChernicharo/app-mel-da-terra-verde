@@ -1,0 +1,52 @@
+<h3>Nova Compra</h3>
+
+<hr />
+
+<div>
+  <form [formGroup]="compraForm">
+    <mat-form-field appearance="standard">
+      <mat-label>Mel</mat-label>
+      <mat-select formControlName="mel" matInput>
+        <mat-option *ngFor="let mel of meles" [value]="mel">{{
+          mel
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field apearance="standard">
+      <mat-label>Quantidade</mat-label>
+      <input
+        type="number"
+        formControlName="quantidade"
+        matInput
+        step="0.1"
+        autocomplete="off"
+      />
+      <span matSuffix>Kg</span>
+    </mat-form-field>
+    <br />
+    <mat-form-field apearance="standard">
+      <mat-label>Valor</mat-label>
+      <span matPrefix>R$&nbsp;</span>
+      <input
+        type="number"
+        formControlName="valor"
+        matInput
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button
+      color="accent"
+      (click)="saveCompra()"
+      [disabled]="compraForm.invalid"
+    >
+      Registrar Compra
+    </button>
+
+    <button type="button" mat-raised-button (click)="onCancel()">
+      Cancelar
+    </button>
+  </form>
+</div>

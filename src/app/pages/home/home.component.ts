@@ -2,8 +2,11 @@ import {
   AfterViewInit,
   Component,
   OnInit,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EventEmitter } from 'events';
 import { from, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -11,6 +14,7 @@ import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { produtosImgUrls } from 'src/assets/img.paths';
+import { CompraDialogComponent } from './compra-dialog/compra-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +31,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   pedidosNaoPagos$: Observable<number>;
   meles;
   baldeImg = produtosImgUrls.honeyBucket;
+  @Output()
+  novaCompra = new EventEmitter();
 
   constructor(
     private clientesService: ClientesService,
     private pedidosService: PedidosService,
     private produtosService: ProdutosService,
-    private estoque: EstoqueService
+    private estoque: EstoqueService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -55,5 +62,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     // this.totalClientes = this.clientesService.countClientes();
+  }
+
+  onOpenCompraDialog() {
+    const dialogRef = this.dialog.open(CompraDialogComponent, {
+      panelClass: 'compra-dialog',
+      hasBackdrop: true,
+      autoFocus: true,
+      data: this.meles,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.novaCompra.emit(result);
+      }
+    });
   }
 }
