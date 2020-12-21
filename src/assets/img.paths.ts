@@ -18,4 +18,6 @@ export const produtosImgUrls = {
 
   honeyBucket:
     'https://firebasestorage.googleapis.com/v0/b/mel-da-terra-verde-app.appspot.com/o/my-honey-bucket.png?alt=media&token=bc983902-7624-4331-b205-2f91cfe22322',
+  favo:
+    'https://firebasestorage.googleapis.com/v0/b/mel-da-terra-verde-app.appspot.com/o/favo.png?alt=media&token=2ef60389-6be8-48ac-8ca6-458c0fcd81aa',
 };

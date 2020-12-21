@@ -1,7 +1,7 @@
 <div class="page-container">
-  <p>home works!</p>
+  <!-- <p>home works!</p>
   <p>Saldo</p>
-  <p>Estoque</p>
+  <p>Estoque</p> -->
 
   <div class="totals-container">
     <ng-container *ngIf="saldo$ | async as saldoAtual">
@@ -42,8 +42,9 @@
 
   <div class="estoque-bruto">
     <div class="mel-div" *ngFor="let mel of meles">
+      <h4>{{ mel | titlecase }}</h4>
       <img [src]="baldeImg" alt="" srcset="" />
-      <span>{{ mel }}</span>
+      <p>estoque</p>
     </div>
   </div>
 </div>

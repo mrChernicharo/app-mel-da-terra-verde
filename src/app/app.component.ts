@@ -32,5 +32,7 @@ export class AppComponent implements OnInit {
       .fetchAllPedidos()
       .pipe(tap((pedidos) => this.estoqueService._setSaldo(pedidos)))
       .subscribe((pedidos) => console.log(this.estoqueService.getSaldo()));
+
+    // this.estoqueService._setEstoqueBruto()
   }
 }

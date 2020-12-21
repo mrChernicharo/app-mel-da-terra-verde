@@ -27,8 +27,9 @@
   </div>
   <div class="meles-container">
     <ng-container *ngFor="let mel of meles">
-      <mat-card>
-        {{ mel }}
+      <mat-card class="mel-card">
+        <img [src]="prodImgs.favo" />
+        <p>{{ mel }}</p>
       </mat-card>
 
       <div class="pote-img-container">

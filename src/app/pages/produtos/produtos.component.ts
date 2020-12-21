@@ -16,6 +16,7 @@ export class ProdutosComponent implements OnInit {
     '350': produtosImgUrls['350'],
     '480': produtosImgUrls['480'],
     '780': produtosImgUrls['780'],
+    favo: produtosImgUrls['favo'],
   };
 
   valores = [4000, 1800, 2800, 3500, 4800];
