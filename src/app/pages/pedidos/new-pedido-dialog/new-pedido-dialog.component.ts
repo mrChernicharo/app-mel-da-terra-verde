@@ -145,15 +145,14 @@ export class NewPedidoDialogComponent implements OnInit {
     }
 
     const value = poteValue * +quantidade * (1 - descount);
-    console.log(value);
     formGroup.get('valor').setValue(value / 100);
-    // formGroup.get('valor').patchValue(value / 100);
+    this.valorTotal$ = of(value);
   }
   setAllProdutosValues(event: InputEvent) {
     fromEvent(event.target, 'input')
       .pipe(
-        // debounceTime(400),
-        delay(100),
+        debounceTime(400),
+        // delay(100),
         // take(1),
         // distinctUntilChanged(),
         tap((event) => {
@@ -164,9 +163,6 @@ export class NewPedidoDialogComponent implements OnInit {
             for (let i = 0; i < this.getProdutosControls().length; i++) {
               this.setValorProduto(i);
             }
-            // this.zone.runGuarded(() => run());
-            // run.call(this);
-            // this.zone.runOutsideAngular(run);
           };
           run();
         }),

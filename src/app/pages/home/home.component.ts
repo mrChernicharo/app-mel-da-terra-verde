@@ -9,6 +9,8 @@ import { map, tap } from 'rxjs/operators';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
+import { ProdutosService } from 'src/app/services/produtos.service';
+import { produtosImgUrls } from 'src/assets/img.paths';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +25,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   totalPedidos$: Observable<number>;
   pedidosPagos$: Observable<number>;
   pedidosNaoPagos$: Observable<number>;
+  meles;
+  baldeImg = produtosImgUrls.honeyBucket;
 
   constructor(
     private clientesService: ClientesService,
     private pedidosService: PedidosService,
+    private produtosService: ProdutosService,
     private estoque: EstoqueService
   ) {}
 
@@ -37,14 +42,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.totalPedidos$ = this.pedidosService.fetchAllPedidos().pipe(
       tap((pedidos) => {
+        this.saldo$ = of(this.estoque.getSaldo());
         this.pedidosPagos$ = of(pedidos.filter((pedido) => pedido.pago).length);
         this.pedidosNaoPagos$ = of(
           pedidos.filter((pedido) => !pedido.pago).length
         );
-        this.saldo$ = of(this.estoque.getSaldo());
       }),
       map((pedidos) => pedidos.length)
     );
+
+    this.meles = this.produtosService.meles;
   }
   ngAfterViewInit() {
     // this.totalClientes = this.clientesService.countClientes();

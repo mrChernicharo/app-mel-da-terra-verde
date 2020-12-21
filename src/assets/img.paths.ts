@@ -15,4 +15,7 @@ export const produtosImgUrls = {
     'https://firebasestorage.googleapis.com/v0/b/mel-da-terra-verde-app.appspot.com/o/mel-480.png?alt=media&token=9836bb40-3b0a-4418-b5a5-f20869e7a03d',
   '780':
     'https://firebasestorage.googleapis.com/v0/b/mel-da-terra-verde-app.appspot.com/o/mel-780.png?alt=media&token=3b020887-86d5-4424-aa6d-a0d611c7dbac',
+
+  honeyBucket:
+    'https://firebasestorage.googleapis.com/v0/b/mel-da-terra-verde-app.appspot.com/o/my-honey-bucket.png?alt=media&token=bc983902-7624-4331-b205-2f91cfe22322',
 };

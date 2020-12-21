@@ -57,6 +57,7 @@
         matInput
         placeholder="0.0"
         [value]="0"
+        autocomplete="off"
       />
     </mat-form-field>
 
@@ -126,6 +127,7 @@
             min="1"
             matInput
             placeholder="quantidade"
+            autocomplete="off"
           />
         </mat-form-field>
 
@@ -147,7 +149,8 @@
     </div>
 
     <div class="valor-total-pedido" *ngIf="valorTotal$ | async as valor">
-      <span>{{ valor }}</span>
+      <h3>Valor total</h3>
+      <span>{{ valor / 100 | currency: "BRL":true }}</span>
     </div>
   </form>
   <br /><br />
