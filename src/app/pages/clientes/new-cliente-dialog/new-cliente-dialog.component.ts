@@ -25,6 +25,7 @@ export class NewClienteDialogComponent implements OnInit {
         Validators.minLength(8),
         Validators.pattern(/^[0-9]\d*$/),
       ]),
+      endereco: new FormControl(''),
       pedidos: new FormControl(0),
     });
   }

@@ -38,6 +38,18 @@
       <mat-icon matSuffix>phone</mat-icon>
       <mat-error>use apenas números</mat-error>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Endereço</mat-label>
+      <input
+        formControlName="endereco"
+        type="text"
+        placeholder="Rua, nº, apt, bairro..."
+        matInput
+      />
+      <mat-icon matSuffix>location_on</mat-icon>
+      <!-- <mat-error>use apenas números</mat-error> -->
+    </mat-form-field>
   </form>
 
   <button

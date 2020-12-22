@@ -13,6 +13,7 @@ export class Cliente {
   nome: string;
   email: string;
   telefone: string;
+  endereco: string;
   dataCadastro: Date;
   atualizadoEm: Date;
   pedidos: number;

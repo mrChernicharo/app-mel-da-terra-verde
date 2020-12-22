@@ -45,11 +45,13 @@ export class ClientesService {
     nome,
     email,
     telefone,
+    endereco,
   }: Omit<Cliente, 'id' | 'dataCadastro' | 'pedidos'>) {
     const newCliente: Cliente = {
       nome,
       email,
       telefone,
+      endereco,
       dataCadastro: new Date(),
       atualizadoEm: new Date(),
       pedidos: 0,
