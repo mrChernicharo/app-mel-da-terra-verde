@@ -58,13 +58,6 @@ export class ClientesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.clientesService.appClientes$
-    //   .pipe(takeUntil(this.destroySubject$))
-    //   .subscribe(
-    //     (clientes) =>
-    //       (this.dataSource = new MatTableDataSource<Cliente>(clientes))
-    //   );
-
     this.clientes$ = this.clientesService.appClientes$.pipe(
       takeUntil(this.destroySubject$)
       // tap((clientes) => console.log(clientes))
@@ -127,14 +120,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
   showClienteDetails(clienteId) {
     console.log(clienteId);
-    // this.clientes$.pipe(
-    //   map((clientes) => {
-    //     console.log(clientes);
-    //     return (this.selectedCliente = clientes.find(
-    //       (cliente) => cliente.id === clienteId
-    //     ));
-    //   })
-    // );
+
     this.clientes$.subscribe(
       (clientes) =>
         (this.selectedCliente = clientes.find(

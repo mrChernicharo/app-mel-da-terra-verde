@@ -7,13 +7,13 @@
     <ng-container *ngIf="saldo$ | async as saldoAtual; else defaultSaldo">
       <mat-card class="saldo-card">
         <h3>Saldo</h3>
-        <p>{{ saldoAtual / 100 | currency: "BRL":true }}</p>
+        <p>{{ saldoAtual / 100 | currency: "BRL":"symbol" }}</p>
       </mat-card>
     </ng-container>
     <ng-template #defaultSaldo>
       <mat-card class="saldo-card">
         <h3>Saldo</h3>
-        <p>{{ 0 | currency: "BRL":true }}</p>
+        <p>{{ 0 | currency: "BRL":"symbol" }}</p>
       </mat-card>
     </ng-template>
 
@@ -67,7 +67,7 @@
           <h4>{{ item.mel | titlecase }}</h4>
           <img [src]="baldeImg" alt="" srcset="" />
           <p>♢ {{ item.quantidade }} g</p>
-          <p>◦ {{ item.valor / 100 | currency: "BRL":true }}</p>
+          <p>◦ {{ item.valor / 100 | currency: "BRL":"symbol" }}</p>
         </mat-card>
       </div>
     </div></ng-container

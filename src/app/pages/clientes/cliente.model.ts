@@ -15,6 +15,6 @@ export class Cliente {
   telefone: string;
   dataCadastro: Date;
   atualizadoEm: Date;
-  pedidos?: Pedido[];
+  pedidos: number;
   // endereco?: Endereco;
 }

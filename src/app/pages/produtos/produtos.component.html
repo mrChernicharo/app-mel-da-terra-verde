@@ -19,7 +19,7 @@
           <img [src]="prodImgs[pote]" class="pote-img" />
         </div>
         <div class="preco-container">
-          {{ valores[i] / 100 | currency: "BRL":true }}
+          {{ valores[i] / 100 | currency: "BRL":"symbol" }}
         </div>
       </mat-card>
     </ng-container>

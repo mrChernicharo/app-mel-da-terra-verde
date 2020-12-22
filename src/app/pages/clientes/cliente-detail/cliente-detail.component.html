@@ -1,10 +1,20 @@
 <div class="component-container">
-  <p>{{ cliente.nome }}</p>
-  <p>{{ cliente.email }}</p>
-  <p>{{ cliente.telefone }}</p>
-  <p>{{ cliente.dataCadastro }}</p>
-  <p>{{ cliente.atualizadoEm }}</p>
-  <p>{{ cliente.id }}</p>
+  <h2>{{ cliente.nome }}</h2>
+  <div class="client-detail">
+    <span>{{ cliente.email }}</span>
+    <span>{{ cliente.telefone }}</span>
+    <span>{{ cliente.id }}</span>
+  </div>
+
+  <div class="data-detail">
+    <span>
+      {{ cliente.dataCadastro | serverTimestamp | customDate: "dd/mm/yyyy" }}
+    </span>
+    <span>
+      {{ cliente.atualizadoEm | serverTimestamp | customDate: "dd/mm/yyyy" }}
+    </span>
+  </div>
+
   <p>{{ cliente.pedidos }}</p>
   <!--
   <ng-template #defaultState>

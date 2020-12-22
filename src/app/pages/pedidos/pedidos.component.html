@@ -42,7 +42,7 @@
     <ng-container matColumnDef="valor">
       <th mat-header-cell *matHeaderCellDef>valor</th>
       <td mat-cell *matCellDef="let pedido">
-        {{ pedido?.valor / 100 | currency: "BRL":true }}
+        {{ pedido?.valor / 100 | currency: "BRL":"symbol" }}
       </td>
     </ng-container>
 
@@ -111,7 +111,7 @@
     <ng-container matColumnDef="valor">
       <mat-header-cell mat-header-cell *matHeaderCellDef>valor</mat-header-cell>
       <mat-cell mat-cell *matCellDef="let pedido">
-        {{ pedido?.valor / 100 | currency: "BRL":true }}
+        {{ pedido?.valor / 100 | currency: "BRL":"symbol" }}
       </mat-cell>
     </ng-container>
 

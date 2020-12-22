@@ -55,7 +55,7 @@
       <p>{{ produto.pote }} {{ produto.mel }} {{ produto.quantidade }}</p>
     </ng-container>
     <p>desconto: {{ data.desconto ? data.desconto : 0 }}%</p>
-    <p>total: {{ data.valor / 100 | currency: "BRL":true }}</p>
+    <p>total: {{ data.valor / 100 | currency: "BRL":"symbol" }}</p>
   </div>
 
   <div class="btn-container">

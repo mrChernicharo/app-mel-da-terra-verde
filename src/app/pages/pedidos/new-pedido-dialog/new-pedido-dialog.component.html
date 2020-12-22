@@ -152,7 +152,9 @@
 
     <div class="valor-total-pedido" *ngIf="valorTotal$ | async as valor">
       <span class="valor-total-head">Valor total</span>
-      <span class="valor-total">{{ valor / 100 | currency: "BRL":true }}</span>
+      <span class="valor-total">{{
+        valor / 100 | currency: "BRL":"symbol"
+      }}</span>
     </div>
   </form>
   <br />

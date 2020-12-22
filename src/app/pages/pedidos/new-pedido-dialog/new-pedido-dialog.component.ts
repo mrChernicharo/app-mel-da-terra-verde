@@ -38,6 +38,7 @@ export class NewPedidoDialogComponent implements OnInit {
   potes: string[];
   potesNames: string[];
   valorTotal$: Observable<number>;
+  selectedClienteId: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<NewPedidoDialogComponent>,
@@ -78,6 +79,7 @@ export class NewPedidoDialogComponent implements OnInit {
   createPedidoForm() {
     return (this.pedidoFormGroup = this.formBuilder.group({
       nomeCliente: new FormControl('', Validators.required),
+      idCliente: new FormControl(''),
       dataPedido: new FormControl('', Validators.required),
       previsaoEntrega: new FormControl('', Validators.required),
       desconto: new FormControl(0),
@@ -105,6 +107,20 @@ export class NewPedidoDialogComponent implements OnInit {
 
   getProdutosControls() {
     return this.produtos.controls;
+  }
+
+  setClienteId() {
+    return this.clientesService.appClientes$.pipe(
+      map((clientes) => {
+        return clientes.filter(
+          (cliente) =>
+            cliente.nome.toLowerCase().trim() ===
+            this.pedidoFormGroup.get('nomeCliente').value.toLowerCase().trim()
+        );
+      }),
+      map((clientes) => (clientes ? clientes[0].id : '')),
+      tap((id) => this.pedidoFormGroup.get('idCliente').setValue(id))
+    );
   }
 
   setValorProduto(index: number) {
@@ -175,6 +191,8 @@ export class NewPedidoDialogComponent implements OnInit {
   }
 
   savePedido() {
+    this.setClienteId().subscribe((id) => (this.selectedClienteId = id));
+
     this.pedidoFormGroup.get('valor').setValue(this.getPedidoTotalValue());
 
     this.pedidosService.addNewPedido(this.pedidoFormGroup.value);

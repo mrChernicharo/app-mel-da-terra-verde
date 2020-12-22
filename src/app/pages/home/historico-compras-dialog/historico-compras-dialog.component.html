@@ -16,7 +16,7 @@
       </td>
       <td>{{ pedido.mel }}</td>
       <td>{{ pedido.quantidade / 1000 }} Kg</td>
-      <td>{{ pedido.valor / 100 | currency: "BRL":true }}</td>
+      <td>{{ pedido.valor / 100 | currency: "BRL":"symbol" }}</td>
     </tr>
   </tbody>
 </table>
