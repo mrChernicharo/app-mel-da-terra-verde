@@ -11,10 +11,7 @@
     <div>
       <span><mat-icon>location_on</mat-icon>{{ cliente.endereco }}</span>
     </div>
-    <hr />
-    <div>
-      <span><mat-icon>fingerprint</mat-icon>{{ cliente.id }}</span>
-    </div>
+    <!-- <hr /> -->
     <div>
       <span
         ><mat-icon>shopping_cart</mat-icon
@@ -24,6 +21,9 @@
             : cliente.pedidos + " pedido"
         }}</span
       >
+    </div>
+    <div>
+      <span><mat-icon>fingerprint</mat-icon>{{ cliente.id }}</span>
     </div>
   </div>
 

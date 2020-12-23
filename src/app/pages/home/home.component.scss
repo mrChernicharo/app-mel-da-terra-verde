@@ -45,10 +45,15 @@ div.page-container {
     }
   }
   .estoque-bruto {
-    display: flex;
-    justify-content: center;
     border: 1px solid #707070;
-    width: calc(100vw -3px);
+    display: grid;
+    grid-auto-columns: 148px;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr;
+    min-height: 209px;
+    left: 0;
+    width: 100%;
+    overflow-x: scroll;
 
     .mel-div {
       // border: 1px solid orangered;
