@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   pedidosNaoPagos$: Observable<number>;
   currentEstoque$: Observable<IMelCompra[]>;
   meles;
+  // meles$: Observable<string[]>;
   baldeImg = produtosImgUrls.honeyBucket;
 
   @Output()
@@ -63,7 +64,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       map((pedidos) => pedidos.length)
     );
 
-    this.meles = this.produtosService.meles;
+    this.produtosService
+      .getMeles()
+      .subscribe((meles) => (this.meles = meles.map((mel) => mel.nome)));
 
     this.currentEstoque$ = this.estoque.estoqueBruto$;
   }

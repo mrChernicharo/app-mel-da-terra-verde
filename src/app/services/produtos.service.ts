@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { produtosImgUrls } from 'src/assets/img.paths';
+
+export interface Mel {
+  id?: string;
+  nome: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +48,17 @@ export class ProdutosService {
     },
   ];
 
-  constructor() {}
+  constructor(private db: AngularFirestore) {}
+
+  getMeles(): Observable<Mel[]> {
+    return this.db
+      .collection<Mel>('meles')
+      .snapshotChanges()
+      .pipe(
+        map((snaps) => {
+          return snaps.map((snap) => snap.payload.doc.data());
+        }),
+        tap((meles) => console.log(meles))
+      );
+  }
 }

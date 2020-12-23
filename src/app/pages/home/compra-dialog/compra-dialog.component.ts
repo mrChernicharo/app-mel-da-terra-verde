@@ -10,13 +10,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatFormFieldControl,
-  MatFormFieldDefaultOptions,
-} from '@angular/material/form-field';
+import { Observable } from 'rxjs';
+
 import { EstoqueService } from 'src/app/services/estoque.service';
 
 @Component({
@@ -27,7 +23,6 @@ import { EstoqueService } from 'src/app/services/estoque.service';
 })
 export class CompraDialogComponent implements OnInit {
   compraForm: FormGroup;
-  @ViewChild('inputOption') optInput: MatFormField;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public meles: string[],
@@ -57,9 +52,8 @@ export class CompraDialogComponent implements OnInit {
     const inputValue: string = event.target.value;
 
     if (inputValue.length > 0) {
-      this.meles.push(inputValue);
-      // const formFieldEl = document.getElementById('mel-form-field');
-      // console.log(formFieldEl);
+      // this.meles.push(inputValue);
+
       this.compraForm.get('mel').patchValue(inputValue);
     }
   }
