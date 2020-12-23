@@ -30,10 +30,10 @@
   </div>
 
   <div class="meles-container">
-    <ng-container *ngFor="let mel of meles">
+    <ng-container *ngFor="let mel of meles$ | async">
       <mat-card class="mel-card">
         <img [src]="prodImgs.favo" class="favo-img" />
-        <p>{{ mel }}</p>
+        <p>{{ mel.nome }}</p>
       </mat-card>
 
       <div class="pote-img-container">

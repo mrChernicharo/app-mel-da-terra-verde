@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { Mel, ProdutosService } from 'src/app/services/produtos.service';
 import { produtosImgUrls, TransparentBGBannerUrl } from 'src/assets/img.paths';
 import { Produto } from './produto.model';
 
@@ -21,10 +23,13 @@ export class ProdutosComponent implements OnInit {
 
   valores = [4000, 1800, 2800, 3500, 4800];
   meles = ['laranjeira', 'eucalípto', 'uruçá', 'jataí'];
+  meles$: Observable<Mel[]>;
 
   bannerImg = TransparentBGBannerUrl;
 
-  constructor(private storage: AngularFireStorage) {}
+  constructor(private produtosService: ProdutosService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.meles$ = this.produtosService.getMeles();
+  }
 }

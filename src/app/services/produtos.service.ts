@@ -61,4 +61,15 @@ export class ProdutosService {
         tap((meles) => console.log(meles))
       );
   }
+
+  addNewMel(nome: string) {
+    this.db
+      .collection('meles')
+      .add({ nome })
+      .then((doc) => {
+        console.log(doc.id);
+        const changes = { id: doc.id };
+        this.db.doc(`meles/${doc.id}`).update(changes);
+      });
+  }
 }

@@ -14,6 +14,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { EstoqueService } from 'src/app/services/estoque.service';
+import { ProdutosService } from 'src/app/services/produtos.service';
 
 @Component({
   selector: 'app-compra-dialog',
@@ -27,6 +28,7 @@ export class CompraDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public meles: string[],
     private dialogRef: MatDialogRef<CompraDialogComponent>,
+    private produtosService: ProdutosService,
     private estoque: EstoqueService,
     private renderer: Renderer2
   ) {}
@@ -52,9 +54,11 @@ export class CompraDialogComponent implements OnInit {
     const inputValue: string = event.target.value;
 
     if (inputValue.length > 0) {
-      // this.meles.push(inputValue);
+      this.meles.push(inputValue);
 
       this.compraForm.get('mel').patchValue(inputValue);
+
+      this.produtosService.addNewMel(inputValue);
     }
   }
 }
