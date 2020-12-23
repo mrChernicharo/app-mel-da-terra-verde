@@ -1,3 +1,23 @@
 .component-container {
   background-color: #ffd740;
+  height: 100%;
+
+  span.title {
+    font-size: 42px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .cliente-detail,
+  .data-detail {
+    // display: flex;
+    span {
+      margin: 0 10px;
+      font-size: 14px;
+
+      mat-icon {
+        vertical-align: middle;
+        font-size: 20px;
+      }
+    }
+  }
 }

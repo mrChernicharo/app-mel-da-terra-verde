@@ -1,23 +1,47 @@
 <div class="component-container">
-  <span class="title"><mat-icon>person</mat-icon>{{ cliente.nome }}</span>
+  <span class="title">{{ cliente.nome | titlecase }}</span>
 
-  <div class="client-detail">
-    <span><mat-icon>phone</mat-icon>{{ cliente.telefone }}</span>
-    <span><mat-icon>mail</mat-icon>{{ cliente.email }}</span>
-    <span><mat-icon>fingerprint</mat-icon>{{ cliente.id }}</span>
-    <span><mat-icon>shopping_cart</mat-icon>{{ cliente.pedidos }}</span>
-    <span><mat-icon>location_on</mat-icon>{{ cliente.endereco }}</span>
+  <div class="cliente-detail">
+    <div>
+      <span><mat-icon>phone</mat-icon>{{ cliente.telefone }}</span>
+    </div>
+    <div>
+      <span><mat-icon>mail</mat-icon>{{ cliente.email }}</span>
+    </div>
+    <div>
+      <span><mat-icon>location_on</mat-icon>{{ cliente.endereco }}</span>
+    </div>
+    <hr />
+    <div>
+      <span><mat-icon>fingerprint</mat-icon>{{ cliente.id }}</span>
+    </div>
+    <div>
+      <span
+        ><mat-icon>shopping_cart</mat-icon
+        >{{
+          cliente.pedidos !== 1
+            ? cliente.pedidos + " pedidos"
+            : cliente.pedidos + " pedido"
+        }}</span
+      >
+    </div>
   </div>
 
   <div class="data-detail">
-    <span>
-      <mat-icon>event_note</mat-icon>
-      {{ cliente.dataCadastro | serverTimestamp | customDate: "dd/mm/yyyy" }}
-    </span>
-    <span>
-      <mat-icon>event_available</mat-icon>
-      {{ cliente.atualizadoEm | serverTimestamp | customDate: "dd/mm/yyyy" }}
-    </span>
+    <div>
+      <span>
+        <mat-icon>event_available</mat-icon>
+        cadastro
+        {{ cliente.dataCadastro | serverTimestamp | customDate: "dd/mm/yyyy" }}
+      </span>
+    </div>
+    <div>
+      <span>
+        <mat-icon>event_note</mat-icon>
+        atualizado em
+        {{ cliente.atualizadoEm | serverTimestamp | customDate: "dd/mm/yyyy" }}
+      </span>
+    </div>
   </div>
 
   <!--

@@ -1,5 +1,5 @@
 div.page-container {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 80px);
   padding: 80px 0 0 0;
   display: flex;
   flex-direction: column;
@@ -51,8 +51,13 @@ div.page-container {
 
   .clientes-card-container {
     border: 1px solid orange;
-    display: flex;
-    min-height: 148px;
+    display: inline-table;
+    display: grid;
+    grid-auto-columns: 200px;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr;
+
+    min-height: 209px;
     left: 0;
     width: 100%;
     overflow-x: scroll;
@@ -60,6 +65,8 @@ div.page-container {
     .cliente-card {
       padding: 8px;
       margin: 3px;
+      max-width: 180px;
+      height: max-content;
 
       &:hover {
         background-color: rgba(222, 222, 222, 0.9);
@@ -72,13 +79,25 @@ div.page-container {
       }
       .card-line {
         padding: 4px;
-        font-size: 14px;
-        display: flex;
+        font-size: 13px;
+        display: table-row;
         color: #707070;
 
+        span {
+          white-space: nowrap;
+          text-overflow: ellipsis !important;
+          overflow: hidden;
+          display: block;
+          max-width: 178px !important;
+        }
+
         &.card-header {
-          font-size: 18px;
+          font-size: 16px;
           color: black;
+
+          mat-icon {
+            margin-right: -4px;
+          }
         }
       }
     }
@@ -86,8 +105,17 @@ div.page-container {
 
   .cliente-detail-container {
     // border: 1px solid red;
+    background-color: #ffd740;
     box-sizing: border-box;
     width: calc(100vw - 4px);
     height: 100%;
+    display: flex;
+    align-items: baseline;
+
+    p.default-message {
+      margin: 16px auto;
+      font-size: 22px;
+      font-weight: bold;
+    }
   }
 }

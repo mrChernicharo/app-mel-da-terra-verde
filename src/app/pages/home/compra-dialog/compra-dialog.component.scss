@@ -1,0 +1,13 @@
+.meles-select-panel {
+  width: 200px;
+  min-height: 280px;
+
+  .custom-mel-field {
+    margin: -10px 0 0 16px;
+    height: 64px;
+  }
+
+  mat-option {
+    height: 38px !important;
+  }
+}

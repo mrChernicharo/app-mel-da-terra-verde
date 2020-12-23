@@ -6,7 +6,23 @@
   <form [formGroup]="compraForm">
     <mat-form-field appearance="standard">
       <mat-label>Mel</mat-label>
-      <mat-select formControlName="mel" matInput>
+      <mat-select
+        panelClass="meles-select-panel"
+        formControlName="mel"
+        matInput
+      >
+        <mat-option></mat-option>
+        <mat-form-field appearance="standard" class="custom-mel-field">
+          <mat-label>✚ adicionar mel</mat-label>
+          <input
+            class="new-mel-input"
+            type="text"
+            matInput
+            placeholder="novo mel"
+            (click)="$event.stopPropagation()"
+            (change)="addNewMel($event)"
+            autocomplete="off"
+        /></mat-form-field>
         <mat-option *ngFor="let mel of meles" [value]="mel">{{
           mel
         }}</mat-option>

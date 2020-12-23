@@ -19,6 +19,7 @@
       </button>
     </div>
   </div>
+
   <div class="clientes-card-container">
     <ng-container *ngIf="clientes$ | async as clientes">
       <mat-card
@@ -27,15 +28,19 @@
         (click)="showClienteDetails(cliente.id)"
       >
         <div class="card-line card-header">
-          <mat-icon matPrefix>person</mat-icon>
-          {{ cliente.nome | titlecase }}
+          <span
+            ><mat-icon matPrefix>person</mat-icon>
+            {{ cliente.nome | titlecase }}</span
+          >
         </div>
 
         <div class="card-line">
-          <mat-icon matPrefix>mail</mat-icon>{{ cliente.email }}
+          <span><mat-icon matPrefix>mail</mat-icon>{{ cliente.email }}</span>
         </div>
         <div class="card-line">
-          <mat-icon matPrefix>phone</mat-icon>{{ cliente.telefone }}
+          <span
+            ><mat-icon matPrefix>phone</mat-icon>{{ cliente.telefone }}</span
+          >
         </div>
       </mat-card>
     </ng-container>
@@ -49,7 +54,7 @@
 
   <ng-template #placeholder>
     <div class="cliente-detail-container">
-      <p>Selecione um cliente</p>
+      <p class="default-message">Selecione um cliente</p>
     </div>
   </ng-template>
 
