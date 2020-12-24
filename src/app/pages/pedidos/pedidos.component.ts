@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
@@ -34,7 +35,9 @@ export class PedidosComponent implements OnInit, OnDestroy {
     'valor',
     'pago',
   ];
-  dataSource: any;
+  dataSource: MatTableDataSource<Pedido>;
+  filterOptions = ['nome', 'data pedido', 'previsao entrega', 'status'];
+  filterSelect: FormGroup;
 
   @Output()
   newPedidoAdded = new EventEmitter<Pedido>();
@@ -50,14 +53,15 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadPedidos();
+
+    this.filterSelect = new FormGroup({
+      filter: new FormControl('nome'),
+    });
   }
 
   loadPedidos() {
     return this.pedidosService
       .fetchAllPedidos()
-      .pipe
-      // tap((pedidos) => this.estoque._setSaldo(pedidos))
-      ()
       .subscribe(
         (data) => (this.dataSource = new MatTableDataSource<Pedido>(data))
       );
@@ -106,8 +110,10 @@ export class PedidosComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = inputValue.trim().toLowerCase();
+
+    // this.dataSource.filterPredicate()
   }
 
   ngOnDestroy() {}

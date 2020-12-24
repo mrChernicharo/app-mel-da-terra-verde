@@ -1,25 +1,39 @@
 <div class="page-container">
-  <p>pedidos works!</p>
+  <div class="title-container">
+    <span>Pedidos</span>
+  </div>
 
   <a class="new-pedido-btn" color="primary" mat-button (click)="onAddPedido()">
     <!-- <mat-icon>local_shipping</mat-icon> -->
     <mat-icon>note_add</mat-icon>
   </a>
 
-  <div class="search-bar-container">
-    <input
-      type="text"
-      class="search-bar"
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. ium"
-      #input
-    />
-    <button type="button" class="search-icon">
-      <mat-icon>search</mat-icon>
-    </button>
-  </div>
+  <div class="filter-container">
+    <mat-form-field>
+      <mat-label>
+        <mat-icon>search</mat-icon>
+      </mat-label>
+      <mat-select matInput #filterSelect>
+        <mat-option *ngFor="let option of filterOptions" [value]="option">{{
+          option
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
+    <div class="search-bar-container">
+      <input
+        type="text"
+        class="search-bar"
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Filtre aqui..."
+        #input
+      />
+      <button type="button" class="search-icon">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
   <!-- <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8"> -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
     <ng-container matColumnDef="position">

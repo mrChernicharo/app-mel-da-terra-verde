@@ -6,6 +6,13 @@ div.page-container {
   align-items: center;
   justify-content: center;
 
+  .title-container {
+    height: 36px;
+    span {
+      font-size: 22px;
+    }
+  }
+
   .new-pedido-btn {
     position: absolute;
     top: 76px;
@@ -21,20 +28,31 @@ div.page-container {
     }
   }
 
-  .search-bar-container {
+  .filter-container {
+    border: 1px solid orange;
     display: flex;
-    border: 1px solid #707000;
-    padding: 1px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    align-items: center;
 
-    input.search-bar {
-      border: none;
-      outline: none;
+    mat-form-field {
+      width: 90px;
     }
-    .search-icon {
-      pointer-events: none;
-      border: none;
+
+    .search-bar-container {
+      display: flex;
+      border: 1px solid #707000;
+      padding: 1px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      height: 30px;
+
+      input.search-bar {
+        border: none;
+        outline: none;
+      }
+      .search-icon {
+        pointer-events: none;
+        border: none;
+      }
     }
   }
 
