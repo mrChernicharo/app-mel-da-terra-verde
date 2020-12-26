@@ -13,7 +13,7 @@ import {
   MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
@@ -36,7 +36,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
     'pago',
   ];
   dataSource: MatTableDataSource<Pedido>;
-  filterOptions = ['nome', 'data pedido', 'previsao entrega', 'status'];
+  filterOptions = ['nomeCliente', 'dataPedido', 'previsaoEntrega', 'status'];
   filterSelect: FormGroup;
 
   @Output()
@@ -55,16 +55,32 @@ export class PedidosComponent implements OnInit, OnDestroy {
     this.loadPedidos();
 
     this.filterSelect = new FormGroup({
-      filter: new FormControl('nome'),
+      filter: new FormControl('nomeCliente'),
     });
   }
 
   loadPedidos() {
     return this.pedidosService
       .fetchAllPedidos()
-      .subscribe(
-        (data) => (this.dataSource = new MatTableDataSource<Pedido>(data))
-      );
+      .pipe(
+        tap((data) => {
+          this.dataSource = new MatTableDataSource<Pedido>(data);
+
+          this.dataSource.filterPredicate = (data, filterValue) => {
+            const selectedFilterObj = this.filterSelect.value;
+
+            return (
+              data[selectedFilterObj.filter]
+                .toLowerCase()
+                .trim()
+                .indexOf(filterValue) !== -1
+            );
+          };
+        }),
+        delay(10),
+        tap((data) => {})
+      )
+      .subscribe((data) => {});
   }
 
   onAddPedido() {
@@ -109,12 +125,15 @@ export class PedidosComponent implements OnInit, OnDestroy {
     });
   }
 
-  applyFilter(event) {
-    console.log(this.filterSelect.value);
-    const inputValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = inputValue.trim().toLowerCase();
+  applyFilter(inputValue, key: string) {
+    console.log(inputValue);
+    console.log(key);
+    // const selectedFilter = this.filterSelect.value;
+    // this.dataSource.filterPredicate = (key, inputValue) => {
 
-    // this.dataSource.filterPredicate()
+    // };
+
+    this.dataSource.filter = inputValue.trim().toLowerCase();
   }
 
   ngOnDestroy() {}

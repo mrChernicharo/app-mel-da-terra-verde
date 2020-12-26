@@ -24,7 +24,9 @@
         type="text"
         class="search-bar"
         matInput
-        (keyup)="applyFilter($event)"
+        (keyup)="
+          applyFilter($event.target.value, filterSelect.get('filter').value)
+        "
         placeholder="Filtre aqui..."
         #input
       />
