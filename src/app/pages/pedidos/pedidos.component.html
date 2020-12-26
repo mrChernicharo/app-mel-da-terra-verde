@@ -11,7 +11,7 @@
   <div class="filter-container">
     <form [formGroup]="filterSelect">
       <mat-form-field>
-        <mat-label> <mat-icon>search</mat-icon> filtro </mat-label>
+        <mat-label> <mat-icon>search</mat-icon> filtrar por... </mat-label>
         <mat-select formControlName="filter" matInput>
           <mat-option *ngFor="let option of filterOptions" [value]="option">{{
             option
@@ -23,11 +23,11 @@
       <input
         type="text"
         class="search-bar"
-        matInput
         (keyup)="
           applyFilter($event.target.value, filterSelect.get('filter').value)
         "
         placeholder="Filtre aqui..."
+        matInput
         #input
       />
       <button type="button" class="search-icon">

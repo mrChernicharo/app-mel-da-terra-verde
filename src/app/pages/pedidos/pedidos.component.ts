@@ -36,7 +36,13 @@ export class PedidosComponent implements OnInit, OnDestroy {
     'pago',
   ];
   dataSource: MatTableDataSource<Pedido>;
-  filterOptions = ['nomeCliente', 'dataPedido', 'previsaoEntrega', 'status'];
+  filterOptions = [
+    'nomeCliente',
+    'dataPedido',
+    'previsaoEntrega',
+    'status',
+    'valor',
+  ];
   filterSelect: FormGroup;
 
   @Output()
@@ -65,20 +71,40 @@ export class PedidosComponent implements OnInit, OnDestroy {
       .pipe(
         tap((data) => {
           this.dataSource = new MatTableDataSource<Pedido>(data);
-
-          this.dataSource.filterPredicate = (data, filterValue) => {
-            const selectedFilterObj = this.filterSelect.value;
-
-            return (
-              data[selectedFilterObj.filter]
-                .toLowerCase()
-                .trim()
-                .indexOf(filterValue) !== -1
-            );
-          };
         }),
         delay(10),
-        tap((data) => {})
+        tap((data) => {
+          this.dataSource.filterPredicate = (data, filterValue) => {
+            const selectedFilterObj = this.filterSelect.value;
+            // ex -> { filter: 'nomeCliente' }
+
+            if (
+              selectedFilterObj.filter === 'dataPedido' ||
+              selectedFilterObj.filter === 'previsaoEntrega'
+            ) {
+              const parsedDate = new Date(
+                data[selectedFilterObj.filter].seconds * 1000
+              );
+
+              // console.log(parsedDate.toLocaleDateString('pt-BR'));
+
+              return parsedDate
+                .toLocaleDateString('pt-BR')
+                .includes(filterValue);
+            } else if (selectedFilterObj.filter === 'valor') {
+              return (+data[selectedFilterObj.filter] / 100)
+                .toString()
+                .includes(filterValue);
+            } else {
+              return (
+                data[selectedFilterObj.filter]
+                  .toLowerCase()
+                  .trim()
+                  .indexOf(filterValue) !== -1
+              );
+            }
+          };
+        })
       )
       .subscribe((data) => {});
   }

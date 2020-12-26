@@ -8,17 +8,21 @@ div.page-container {
 
   .title-container {
     height: 36px;
+    width: 100%;
+    margin: 0 0 0 48px;
+
     span {
       font-size: 22px;
+      border-bottom: 2px solid orange;
     }
   }
 
   .new-pedido-btn {
     position: absolute;
-    top: 76px;
-    right: 18px;
-    height: 76px;
-    width: 100px;
+    top: 70px;
+    right: 0;
+    // height: 76px;
+    // width: 100px;
     // > .mat-button-wrapper {
     //   border: 1px solid;
     // }
@@ -29,12 +33,14 @@ div.page-container {
   }
 
   .filter-container {
-    border: 1px solid orange;
+    // border: 1px solid orange;
+    margin-top: 20px;
     display: flex;
     align-items: center;
 
     mat-form-field {
-      width: 90px;
+      width: 132px;
+      margin-right: 12px;
     }
 
     .search-bar-container {
