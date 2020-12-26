@@ -9,17 +9,16 @@
   </a>
 
   <div class="filter-container">
-    <mat-form-field>
-      <mat-label>
-        <mat-icon>search</mat-icon>
-      </mat-label>
-      <mat-select matInput #filterSelect>
-        <mat-option *ngFor="let option of filterOptions" [value]="option">{{
-          option
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
+    <form [formGroup]="filterSelect">
+      <mat-form-field>
+        <mat-label> <mat-icon>search</mat-icon> filtro </mat-label>
+        <mat-select formControlName="filter" matInput>
+          <mat-option *ngFor="let option of filterOptions" [value]="option">{{
+            option
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
     <div class="search-bar-container">
       <input
         type="text"

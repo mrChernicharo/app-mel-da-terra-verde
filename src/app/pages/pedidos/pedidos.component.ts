@@ -110,6 +110,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(event) {
+    console.log(this.filterSelect.value);
     const inputValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = inputValue.trim().toLowerCase();
 
