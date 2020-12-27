@@ -91,9 +91,9 @@ export class NewPedidoDialogComponent implements OnInit {
 
   newProdutoFormGroup() {
     return this.formBuilder.group({
-      mel: new FormControl('', Validators.required),
       pote: new FormControl('', Validators.required),
       quantidade: new FormControl(1, Validators.required),
+      mel: new FormControl('', Validators.required),
       valor: new FormControl(''),
     });
   }

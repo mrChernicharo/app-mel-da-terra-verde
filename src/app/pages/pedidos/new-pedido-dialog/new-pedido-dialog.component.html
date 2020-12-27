@@ -96,15 +96,6 @@
           <mat-icon>delete</mat-icon>
         </button>
 
-        <mat-form-field class="mel" appearance="standard">
-          <mat-label>Mel</mat-label>
-          <mat-select formControlName="mel" matInput placeholder="mel">
-            <mat-option *ngFor="let mel of meles$ | async" [value]="mel.nome">{{
-              mel.nome
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
         <mat-form-field class="pote" appearance="standard">
           <mat-label>Pote</mat-label>
           <!-- (valueChange)="setValorProduto(i)" -->
@@ -134,6 +125,15 @@
             placeholder="quantidade"
             autocomplete="off"
           />
+        </mat-form-field>
+
+        <mat-form-field class="mel" appearance="standard">
+          <mat-label>Mel</mat-label>
+          <mat-select formControlName="mel" matInput placeholder="mel">
+            <mat-option *ngFor="let mel of meles$ | async" [value]="mel.nome">{{
+              mel.nome
+            }}</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field class="valor-produto" appearance="standard">

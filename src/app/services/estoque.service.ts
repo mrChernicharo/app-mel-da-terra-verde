@@ -125,15 +125,50 @@ export class EstoqueService {
       return acc;
     }, []);
   }
+
   subtractFromMelStock(produtos: Produto[]) {
+    console.log('produtos');
     console.log(produtos);
 
-    this.estoqueBruto$.pipe(
-      tap((meles) => {
-        console.log(meles);
-        // produtos.reduce((acc, next) => {})
-      })
-    );
+    const estoqueState = this.estoqueBrutoSubject$.getValue();
+
+    console.log('estoqueState');
+    console.log(estoqueState);
+
+    const updatedEstoque = estoqueState.reduce((acc, next, i) => {
+      acc.push(next);
+      let found = produtos.find((prod) => prod.mel === next.mel);
+      if (found) {
+        console.log(found);
+
+        switch (found.pote) {
+          case '150':
+            acc[i].quantidade -= 150 * found.quantidade;
+            break;
+          case '350':
+            acc[i].quantidade -= 350 * found.quantidade;
+            break;
+          case '480':
+            acc[i].quantidade -= 480 * found.quantidade;
+            break;
+          case '780':
+            acc[i].quantidade -= 780 * found.quantidade;
+            break;
+          case 'kit':
+            acc[i].quantidade -= 240 * found.quantidade;
+            break;
+          default:
+            break;
+        }
+      }
+
+      return acc;
+    }, []);
+
+    console.log('updatedEstoque');
+    console.log(updatedEstoque);
+
+    this.estoqueBrutoSubject$.next(updatedEstoque);
   }
   // subtractFromSaldo(value: number) {
   //   console.log(value);
