@@ -21,7 +21,7 @@ import {
 import { ClientesService } from 'src/app/services/clientes.service';
 import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
-import { ProdutosService } from 'src/app/services/produtos.service';
+import { Mel, ProdutosService } from 'src/app/services/produtos.service';
 
 @Component({
   selector: 'app-new-pedido-dialog',
@@ -34,7 +34,7 @@ export class NewPedidoDialogComponent implements OnInit {
   nextWeek = new Date(new Date().getTime() * 24 * 60 * 60 * 1000 * 6);
   clientes: string[];
   clientesNames$: Observable<string[]>;
-  meles: string[];
+  meles$: Observable<Mel[]>;
   potes: string[];
   potesNames: string[];
   valorTotal$: Observable<number>;
@@ -51,7 +51,6 @@ export class NewPedidoDialogComponent implements OnInit {
     private clientesService: ClientesService,
     private produtosService: ProdutosService
   ) {
-    this.meles = this.produtosService.meles;
     this.potes = this.produtosService.produtos.map((produto) => produto.pote);
     this.potesNames = this.produtosService.produtos.map(
       (produto) => produto.nome
@@ -64,6 +63,8 @@ export class NewPedidoDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPedidoForm();
+
+    this.meles$ = this.produtosService.getMeles();
 
     this.clientesNames$ = this.clientesService.appClientes$.pipe(
       map((clientes) => {

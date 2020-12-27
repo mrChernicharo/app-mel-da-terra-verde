@@ -99,8 +99,8 @@
         <mat-form-field class="mel" appearance="standard">
           <mat-label>Mel</mat-label>
           <mat-select formControlName="mel" matInput placeholder="mel">
-            <mat-option *ngFor="let mel of meles" [value]="mel">{{
-              mel
+            <mat-option *ngFor="let mel of meles$ | async" [value]="mel.nome">{{
+              mel.nome
             }}</mat-option>
           </mat-select>
         </mat-form-field>
