@@ -13,7 +13,8 @@ import {
   MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { delay, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { delay, takeUntil, tap } from 'rxjs/operators';
 import { EstoqueService } from 'src/app/services/estoque.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { NewPedidoDialogComponent } from '../pedidos/new-pedido-dialog/new-pedido-dialog.component';
@@ -50,6 +51,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   @Output()
   pedidoEdited = new EventEmitter<Pedido>();
+  destroySubject$ = new Subject<boolean>();
 
   constructor(
     private dialog: MatDialog,
@@ -69,6 +71,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
     return this.pedidosService
       .fetchAllPedidos()
       .pipe(
+        takeUntil(this.destroySubject$),
         tap((data) => {
           this.dataSource = new MatTableDataSource<Pedido>(data);
         }),
@@ -122,12 +125,15 @@ export class PedidosComponent implements OnInit, OnDestroy {
       // scrollStrategy:
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.newPedidoAdded.emit(result);
-        this.loadPedidos();
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe((result) => {
+        if (result) {
+          this.newPedidoAdded.emit(result);
+          this.loadPedidos();
+        }
+      });
   }
 
   openEditDialog(row) {
@@ -162,5 +168,8 @@ export class PedidosComponent implements OnInit, OnDestroy {
     this.dataSource.filter = inputValue.trim().toLowerCase();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    console.log('destruindo pedidos');
+    this.destroySubject$.next(true);
+  }
 }
