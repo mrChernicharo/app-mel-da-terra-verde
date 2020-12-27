@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { Pedido } from '../pages/pedidos/pedido.model';
+import { Produto } from '../pages/produtos/produto.model';
 import { IServerTimestamp } from '../shared/server-timestamp.pipe';
 import { PedidosService } from './pedidos.service';
 import { ProdutosService } from './produtos.service';
@@ -124,7 +125,16 @@ export class EstoqueService {
       return acc;
     }, []);
   }
+  subtractFromMelStock(produtos: Produto[]) {
+    console.log(produtos);
 
+    this.estoqueBruto$.pipe(
+      tap((meles) => {
+        console.log(meles);
+        // produtos.reduce((acc, next) => {})
+      })
+    );
+  }
   // subtractFromSaldo(value: number) {
   //   console.log(value);
   //   // console.log(currentSaldo);

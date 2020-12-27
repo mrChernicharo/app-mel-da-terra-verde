@@ -66,6 +66,7 @@ export class PedidosService {
       .add(newPedido)
       .then(() => {
         this.estoque.getSaldo();
+        this.estoque.subtractFromMelStock(newPedido.produtos);
       });
 
     // this.clientesService.updatePedidosCliente(idCliente);

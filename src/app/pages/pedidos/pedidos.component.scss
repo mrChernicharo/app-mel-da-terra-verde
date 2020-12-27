@@ -18,10 +18,13 @@ div.page-container {
   }
 
   .new-pedido-btn {
+    // position: absolute;
+    // top: 70px;
+    // right: 0;
     position: absolute;
-    top: 70px;
-    right: 0;
-
+    top: 72px;
+    right: 6px;
+    width: 72px;
     mat-icon {
       font-size: 60px;
       margin: 0 24px 0 -19px;
