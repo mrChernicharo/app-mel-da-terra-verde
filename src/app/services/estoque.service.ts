@@ -77,9 +77,34 @@ export class EstoqueService {
       0
     );
 
-    // console.log(reducedEstoque);
-    this.estoqueBrutoSubject$.next(reducedEstoque);
     this.saldoSubject$.next(valorTotalEstoque - valorTotalCompras);
+
+    for (let i = 0; i < pedidos.length; i++) {
+      for (let produto of pedidos[i].produtos) {
+        const j = reducedEstoque.findIndex((mel) => mel.mel === produto.mel);
+        // const estoqueMel = reducedEstoque.find(mel => mel.mel === produto.mel)
+        switch (produto.pote) {
+          case '150':
+            reducedEstoque[j].quantidade -= 150 * produto.quantidade;
+            break;
+          case '350':
+            reducedEstoque[j].quantidade -= 350 * produto.quantidade;
+            break;
+          case '480':
+            reducedEstoque[j].quantidade -= 480 * produto.quantidade;
+            break;
+          case '780':
+            reducedEstoque[j].quantidade -= 780 * produto.quantidade;
+            break;
+          case 'kit':
+            reducedEstoque[j].quantidade -= 240 * produto.quantidade;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    this.estoqueBrutoSubject$.next(reducedEstoque);
   }
 
   getEstoqueBruto() {
@@ -126,54 +151,50 @@ export class EstoqueService {
     }, []);
   }
 
-  subtractFromMelStock(produtos: Produto[]) {
-    console.log('produtos');
-    console.log(produtos);
+  // subtractFromMelStock(produtos: Produto[]) {
+  //   console.log('produtos');
+  //   console.log(produtos);
 
-    const estoqueState = this.estoqueBrutoSubject$.getValue();
+  //   const estoqueState = this.estoqueBrutoSubject$.getValue();
 
-    console.log('estoqueState');
-    console.log(estoqueState);
+  //   console.log('estoqueState');
+  //   console.log(estoqueState);
 
-    const updatedEstoque = estoqueState.reduce((acc, next, i) => {
-      acc.push(next);
-      let found = produtos.find((prod) => prod.mel === next.mel);
-      if (found) {
-        console.log(found);
+  //   const updatedEstoque = estoqueState.reduce((acc, next, i) => {
+  //     acc.push(next);
+  //     let found = produtos.find((prod) => prod.mel === next.mel);
+  //     if (found) {
+  //       console.log(found);
 
-        switch (found.pote) {
-          case '150':
-            acc[i].quantidade -= 150 * found.quantidade;
-            break;
-          case '350':
-            acc[i].quantidade -= 350 * found.quantidade;
-            break;
-          case '480':
-            acc[i].quantidade -= 480 * found.quantidade;
-            break;
-          case '780':
-            acc[i].quantidade -= 780 * found.quantidade;
-            break;
-          case 'kit':
-            acc[i].quantidade -= 240 * found.quantidade;
-            break;
-          default:
-            break;
-        }
-      }
+  //       switch (found.pote) {
+  //         case '150':
+  //           acc[i].quantidade -= 150 * found.quantidade;
+  //           break;
+  //         case '350':
+  //           acc[i].quantidade -= 350 * found.quantidade;
+  //           break;
+  //         case '480':
+  //           acc[i].quantidade -= 480 * found.quantidade;
+  //           break;
+  //         case '780':
+  //           acc[i].quantidade -= 780 * found.quantidade;
+  //           break;
+  //         case 'kit':
+  //           acc[i].quantidade -= 240 * found.quantidade;
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     }
 
-      return acc;
-    }, []);
+  //     return acc;
+  //   }, []);
 
-    console.log('updatedEstoque');
-    console.log(updatedEstoque);
+  //   console.log('updatedEstoque');
+  //   console.log(updatedEstoque);
 
-    this.estoqueBrutoSubject$.next(updatedEstoque);
-  }
-  // subtractFromSaldo(value: number) {
-  //   console.log(value);
-  //   // console.log(currentSaldo);
-  //   const currentSaldo = this.saldoSubject$.getValue();
-  //   this.saldoSubject$.next(currentSaldo - value);
+  //   return updatedEstoque;
+
+  //   // this.estoqueBrutoSubject$.next(updatedEstoque);
   // }
 }
