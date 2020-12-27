@@ -8,15 +8,22 @@ div.page-container {
   justify-content: center;
   // overflow-y: scroll;
 
+  .title-container {
+    height: 36px;
+    width: 100%;
+    margin: 0 0 0 48px;
+
+    span {
+      font-size: 22px;
+      border-bottom: 2px solid orange;
+    }
+  }
+
   .new-client-btn {
     position: absolute;
-    top: 76px;
-    right: 18px;
-    height: 76px;
-    width: 100px;
-    // > .mat-button-wrapper {
-    //   border: 1px solid;
-    // }
+    top: 58px;
+    right: 10px;
+
     mat-icon {
       font-size: 60px;
       margin: 0 24px 0 -19px;
@@ -24,9 +31,9 @@ div.page-container {
   }
 
   .search-bar-container {
-    border: 1px solid blue;
+    // border: 1px solid blue;
     display: flex;
-    margin: -12px 0 0 0;
+    margin: 16px 0 0 0;
     width: 100%;
     flex-direction: column;
     align-items: center;

@@ -12,6 +12,12 @@ div.page-container {
 
     mat-card {
       margin: 3px;
+
+      p.colored-outcome {
+        font-size: 34px;
+        margin: -12px 0;
+        color: orange;
+      }
     }
     .saldo-card {
       background-color: #ffd740;
@@ -36,11 +42,7 @@ div.page-container {
       }
       .detail-container {
         // border: 1px solid orangered;
-        margin-left: 16px;
-
-        p:first-child {
-          margin-top: 19px;
-        }
+        margin: 46px 0 0 -10px;
       }
     }
   }
@@ -63,6 +65,8 @@ div.page-container {
       h4 {
         text-align: center;
         margin: 4px;
+        padding: 0 0 4px;
+        border-bottom: 2px solid orange;
       }
 
       img {
