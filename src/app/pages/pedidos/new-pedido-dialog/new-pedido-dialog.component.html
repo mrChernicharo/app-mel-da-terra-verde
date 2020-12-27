@@ -20,28 +20,33 @@
 
     <mat-form-field class="data" appearance="standard">
       <mat-label>Data Pedido</mat-label>
-      <input
-        formControlName="dataPedido"
-        type="date"
-        matInput
-        placeholder="dd/mm/aaaa"
-        [value]="today"
-      />
-      <mat-icon matSuffix>date</mat-icon>
-      <mat-error>A data é obrigatória</mat-error>
+
+      <input matInput [matDatepicker]="picker" formControlName="dataPedido" />
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker color="primary" [value]="today"></mat-datepicker>
+      <mat-error>A data do pedidos é obrigatória</mat-error>
     </mat-form-field>
 
     <mat-form-field class="data" appearance="standard">
       <mat-label>Previsão Entrega</mat-label>
+
       <input
-        formControlName="previsaoEntrega"
-        type="date"
         matInput
-        placeholder="dd/mm/aaaa"
-        [value]="nextWeek"
+        [matDatepicker]="entregaPicker"
+        formControlName="previsaoEntrega"
       />
-      <mat-icon matSuffix>date</mat-icon>
-      <mat-error>A data é obrigatória</mat-error>
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="entregaPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker
+        #entregaPicker
+        color="primary"
+        [value]="nextWeek"
+      ></mat-datepicker>
+      <mat-error>A data de entrega é obrigatória</mat-error>
     </mat-form-field>
 
     <mat-form-field class="desconto" appearance="standard">
