@@ -20,13 +20,13 @@
     <ng-container
       *ngIf="totalClientes$ | async as clientesTotal; else defaultClientes"
     >
-      <mat-card>
+      <mat-card class="clientes-total-card">
         <h3>Clientes</h3>
         <p class="colored-outcome">{{ clientesTotal }}</p>
       </mat-card>
     </ng-container>
     <ng-template #defaultClientes>
-      <mat-card>
+      <mat-card class="clientes-total-card">
         <h3>Clientes</h3>
         <p class="colored-outcome">{{ 0 }}</p>
       </mat-card>
@@ -42,8 +42,8 @@
         <div class="detail-container">
           <ng-container *ngIf="pedidosPagos$ | async as pedidosPagosTotal">
             <p style="color: #04ad6d; margin: 0;">
-              <strong>◦ Pagos</strong>
-              {{ pedidosPagosTotal }}
+              ◦ Pagos
+              <strong>{{ pedidosPagosTotal }}</strong>
             </p>
           </ng-container>
 
@@ -51,13 +51,17 @@
             *ngIf="pedidosNaoPagos$ | async as pedidosNaoPagosTotal"
           >
             <p style="color: orange; margin: 0;">
-              <strong>◦ A pagar</strong>
-              {{ pedidosNaoPagosTotal }}
+              ◦ A pagar
+              <strong>{{ pedidosNaoPagosTotal }}</strong>
             </p>
           </ng-container>
         </div>
       </mat-card>
     </ng-container>
+  </div>
+
+  <div class="section-title-container">
+    <span class="section-title">Estoque</span>
   </div>
 
   <ng-container *ngIf="currentEstoque$ | async as estoqueItem">
@@ -70,15 +74,19 @@
           <p>◦ {{ item.valor / 100 | currency: "BRL":"symbol" }}</p>
         </mat-card>
       </div>
-    </div></ng-container
-  >
+    </div>
+  </ng-container>
   <div class="compra-btn-container">
-    <button mat-button color="primary" (click)="onOpenCompraDialog()">
+    <button mat-raised-button color="primary" (click)="onOpenCompraDialog()">
       <mat-icon>add</mat-icon>
       nova compra
     </button>
 
-    <button mat-button color="primary" (click)="onOpenHistoricoCompraDialog()">
+    <button
+      mat-raised-button
+      color="basic"
+      (click)="onOpenHistoricoCompraDialog()"
+    >
       <mat-icon>history</mat-icon>
       histórico de compras
     </button>

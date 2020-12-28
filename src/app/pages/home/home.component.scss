@@ -1,21 +1,22 @@
 div.page-container {
-  border: 1px solid orangered;
+  // border: 1px solid orangered;
   height: calc(100vh - 68px);
-  padding-top: 66px;
+  padding-top: 72px;
   display: flex;
   flex-direction: column;
   box-sizing: content-box;
 
   .totals-container {
     display: flex;
-    border: 1px solid #707070;
+    min-width: 620px;
+    // border: 1px solid #707070;
 
     mat-card {
       margin: 3px;
 
       p.colored-outcome {
         font-size: 34px;
-        margin: -12px 0;
+        margin: -12px 12px 0 0;
         color: orange;
       }
     }
@@ -46,10 +47,21 @@ div.page-container {
       }
     }
   }
+
+  .section-title-container {
+    width: 100%;
+    padding: 12px;
+
+    span.section-title {
+      // margin-left: 14px;
+      font-size: 20px;
+      border-bottom: 2px solid orange;
+    }
+  }
   .estoque-bruto {
-    border: 1px solid #707070;
+    // border: 1px solid #707070;
     display: grid;
-    grid-auto-columns: 148px;
+    grid-auto-columns: 136px;
     grid-auto-flow: column;
     grid-template-rows: 1fr;
     min-height: 209px;
@@ -58,24 +70,132 @@ div.page-container {
     overflow-x: scroll;
 
     .mel-div {
-      // border: 1px solid orangered;
-      // border-radius: 8px;
-      margin: 8px;
+      margin: 3px;
 
       h4 {
-        text-align: center;
-        margin: 4px;
+        margin: -4px 0px 2px;
         padding: 0 0 4px;
-        border-bottom: 2px solid orange;
+        border-bottom: 1px solid #707070;
       }
 
       img {
-        width: 100px;
+        width: 84px;
       }
 
       p {
         margin: 4px;
         font-size: 14px;
+      }
+    }
+  }
+  .compra-btn-container {
+    // border: 1px solid red;
+    padding: 4px 0;
+    min-width: 340px;
+    display: flex;
+    justify-content: center;
+
+    :first-child {
+      margin: 0 6px 0 0;
+    }
+    button {
+      mat-icon {
+        font-size: 20px;
+        margin: 0 !important;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  div.page-container {
+    padding-top: 64px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .totals-container {
+    min-width: 340px;
+
+    mat-card {
+      padding: 6px;
+    }
+    .saldo-card {
+      max-height: 62px;
+      h3 {
+        font-size: 16px;
+      }
+      p {
+        font-size: 20px !important;
+      }
+    }
+    .clientes-total-card {
+      max-height: 62px;
+
+      h3 {
+        font-size: 16px;
+      }
+      p.colored-outcome {
+        font-size: 20px !important;
+      }
+    }
+    mat-card.pedidos-total-card {
+      max-height: 74px;
+      padding: 0 6px !important;
+
+      .master-container {
+        h3 {
+          font-size: 16px;
+          margin: 7px 0 16px 0 !important;
+        }
+        p.colored-outcome {
+          font-size: 20px !important;
+        }
+      }
+
+      .detail-container {
+        margin: 24px 0 8px -12px !important;
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .section-title-container {
+    width: 100%;
+    padding: 12px;
+
+    span.section-title {
+      margin-left: -1px;
+      font-size: 18px !important;
+    }
+  }
+  .estoque-bruto {
+    grid-auto-columns: 118px !important;
+    min-height: 190px !important;
+
+    .mel-div {
+      // border: 1px solid blue;
+      mat-card {
+        padding: 12px 8px 8px;
+      }
+
+      h4 {
+        font-size: 15px;
+      }
+      p {
+        margin: 1px !important;
+        font-size: 12px !important;
+      }
+    }
+  }
+  .compra-btn-container {
+    button {
+      font-size: 12px;
+
+      mat-icon {
+        margin: 0 !important;
+        font-size: 21px;
       }
     }
   }
