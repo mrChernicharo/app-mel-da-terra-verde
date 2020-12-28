@@ -64,8 +64,8 @@ div.page-container {
   }
 
   .pago-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     &.pago-true {
       background-color: rgb(4, 173, 109);
@@ -94,4 +94,20 @@ div.page-container {
     }
   }
   // }
+}
+@media only screen and (max-width: 570px) {
+  tr.mat-row {
+    &:first-child {
+      padding-left: 8px;
+    }
+    &:last-child {
+      padding-right: 8px;
+    }
+  }
+
+  .pago-icon {
+    width: 10px !important;
+    height: 10px !important;
+    transform: translateX(12px);
+  }
 }

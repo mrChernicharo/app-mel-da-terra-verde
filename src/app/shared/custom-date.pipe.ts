@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-export type FormatOptions = 'dd/mm/yyyy' | 'long';
+export type FormatOptions = 'dd/mm/yyyy' | 'dd/mm' | 'long';
 
 @Pipe({
   name: 'customDate',
@@ -11,10 +11,10 @@ export class CustomDatePipe implements PipeTransform {
 
     switch (config) {
       case 'dd/mm/yyyy':
-        // formatedDate = `${date.getDate()}/${
-        //   date.getMonth() + 1
-        // }/${date.getFullYear()}`;
         formatedDate = date.toLocaleDateString('pt-BR');
+        break;
+      case 'dd/mm':
+        formatedDate = date.toLocaleDateString('pt-BR').substr(0, 5);
         break;
     }
 
