@@ -23,9 +23,7 @@
       <input
         type="text"
         class="search-bar"
-        (keyup)="
-          applyFilter($event.target.value, filterSelect.get('filter').value)
-        "
+        (keyup)="applyFilter($event.target.value)"
         placeholder="Filtre aqui..."
         matInput
         #input
@@ -44,7 +42,9 @@
 
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef>cliente</th>
-      <td mat-cell *matCellDef="let pedido">{{ pedido?.nomeCliente }}</td>
+      <td mat-cell *matCellDef="let pedido">
+        {{ pedido?.nomeCliente | titlecase }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -62,7 +62,7 @@
     </ng-container>
 
     <ng-container matColumnDef="dataPedido">
-      <th mat-header-cell *matHeaderCellDef>pedido em</th>
+      <th mat-header-cell *matHeaderCellDef>data pedido</th>
       <td mat-cell *matCellDef="let pedido">
         {{ pedido?.dataPedido | serverTimestamp | customDate: "dd/mm/yyyy" }}
       </td>

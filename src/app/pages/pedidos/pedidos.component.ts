@@ -2,6 +2,7 @@ import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
   Component,
   EventEmitter,
+  HostListener,
   OnDestroy,
   OnInit,
   Output,
@@ -27,15 +28,7 @@ import { Pedido } from './pedido.model';
   styleUrls: ['./pedidos.component.scss'],
 })
 export class PedidosComponent implements OnInit, OnDestroy {
-  displayedColumns = [
-    'position',
-    'nome',
-    'dataPedido',
-    'status',
-    'previsaoEntrega',
-    'valor',
-    'pago',
-  ];
+  displayedColumns = [];
   dataSource: MatTableDataSource<Pedido>;
   filterOptions = [
     'nomeCliente',
@@ -45,13 +38,18 @@ export class PedidosComponent implements OnInit, OnDestroy {
     'valor',
   ];
   filterSelect: FormGroup;
+  destroySubject$ = new Subject<boolean>();
 
   @Output()
   newPedidoAdded = new EventEmitter<Pedido>();
 
   @Output()
   pedidoEdited = new EventEmitter<Pedido>();
-  destroySubject$ = new Subject<boolean>();
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.displayColumnsBasedOnAvailableWidth();
+  }
 
   constructor(
     private dialog: MatDialog,
@@ -61,6 +59,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadPedidos();
+    this.onResize();
 
     this.filterSelect = new FormGroup({
       filter: new FormControl('nomeCliente'),
@@ -157,19 +156,45 @@ export class PedidosComponent implements OnInit, OnDestroy {
     });
   }
 
-  applyFilter(inputValue, key: string) {
-    console.log(inputValue);
-    console.log(key);
-    // const selectedFilter = this.filterSelect.value;
-    // this.dataSource.filterPredicate = (key, inputValue) => {
-
-    // };
-
+  applyFilter(inputValue) {
     this.dataSource.filter = inputValue.trim().toLowerCase();
   }
 
   ngOnDestroy() {
     console.log('destruindo pedidos');
     this.destroySubject$.next(true);
+  }
+
+  displayColumnsBasedOnAvailableWidth() {
+    const availableWidth = window.innerWidth;
+    // console.log(availableWidth);
+    availableWidth > 600
+      ? (this.displayedColumns = [
+          'position',
+          'nome',
+          'dataPedido',
+          'valor',
+          'status',
+          'previsaoEntrega',
+          'pago',
+        ])
+      : availableWidth > 440
+      ? (this.displayedColumns = [
+          'nome',
+          'dataPedido',
+          'valor',
+          'status',
+          'previsaoEntrega',
+          'pago',
+        ])
+      : availableWidth > 356
+      ? (this.displayedColumns = [
+          'nome',
+          'dataPedido',
+          'valor',
+          'status',
+          'pago',
+        ])
+      : (this.displayedColumns = ['nome', 'dataPedido', 'valor', 'pago']);
   }
 }
