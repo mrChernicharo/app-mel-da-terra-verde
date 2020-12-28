@@ -39,11 +39,10 @@
 
   <div class="slide-toggle-container">
     <mat-label>Tá pago?&nbsp;&nbsp;&nbsp;</mat-label>
-    <mat-slide-toggle
-      formControlName="pago"
-      color="primary"
-      [(ngModel)]="data.pago"
-    >
+    <!-- [(ngModel)]="data.pago" -->
+    <!-- [checked]="data.pago ? true : false" -->
+    <!-- [startValue]="data.pago" -->
+    <mat-slide-toggle formControlName="pago" color="primary">
     </mat-slide-toggle>
     <span class="sim-nao">{{ data.pago ? "Sim!" : "Não" }}</span>
   </div>

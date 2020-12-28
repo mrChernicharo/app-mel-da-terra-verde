@@ -44,7 +44,7 @@ export class EditPedidoDialogComponent implements OnInit, AfterViewInit {
     this.editPedidoForm = this.formBuilder.group({
       status: new FormControl(this.data.status),
       previsaoEntrega: new FormControl(this.dataEntrega),
-      pago: new FormControl(false),
+      pago: new FormControl(this.data.pago),
     });
   }
 
